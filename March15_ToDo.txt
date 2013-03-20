@@ -1,0 +1,1208 @@
+To do for Owasco model :
+
+FORECASTS : Get info about time of obs and location into the list that is returned
+
+Owasco model : 
+	- Use previously output data to initiate a run
+	- Store model runs somewhere
+	- Get the input file started
+	- Initiate for Salmon Creek?
+	- CFS to depth in mm function??  
+
+
+
+
+
+
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+
+This is a session spawned by NppToR.
+
+
+> STATE <- "NY" 
+> #  In what state/s is the watershed?  If multiple, separate with "|" e.g. "NY | PA"
+> 
+> COOPstationsBEST <-  c("Auburn", "Freeville", "Locke", "Moravia", "Lansing 6.6 NW") 
+> # The names of the stations that are in or close to the watershed 
+> #  The precip values from all of these that report on a particular day will be averaged.
+> # Advantage to being specific in the name (e.g. Lansing 6.6 NW ) 
+> #- This will make sure you are not picking up a station in a distant town with the same name
+> # Advantage to being general in the name (e.g. Ithaca)
+> #- There could be multiple stations within one town, so if one doesn't report, you can still get the other.
+> #- CAUTION: Use this only if there is no other town with the same name in your specified state
+> ##  To find Coop Stations near/in watershed:
+> #- Here is a useful map: http://data.cocorahs.org/cocorahs/maps/?country=USA
+> # - Or check this website: http://www.nws.noaa.gov/data/TAR/HYDTAR
+> 
+> COOPstationsBACKUP <- c("Syracuse", "Cortland","Ithaca", "Aurora")  
+> # Backup co-op stations in case best stations all don't report
+> 
+> UseCoop = TRUE  
+> # Put FALSE here when collecting data before 9:30 am
+> 
+> NOAA_STATIONS = c("KITH", "KSYR")
+> # These are the NOAA stations where we will get recorded max/min temp data, and predicted values.  
+> #If UseCoop = FALSE, we will also get past precip values from these NOAA stations
+> #  Note, these update frequently (every 1-6 hours), but have fewer locations
+> ##  This website can help find NOAA stations: http://weather.uwyo.edu/models/mos/mos.html
+> 
+> P_cutoff <- 30 
+> #Don't count predicted precip in model if probability of precip is less than this (%)
+> 
+> DAYS_PREDICTION <- 3
+> #  How many days in the future do we want this to predict until
+> #NOTE:  Might want the web-site side of things to link to this value too
+> #- JSN table
+> # - Prediction table size
+> #####################################################################################################################################
+> 
+> ## Must set path to run as a cron job 
+> # setwd("F:/Owasco/CURRENT MODEL/hsa-model")
+> setwd("/var/opt/hsa-model")
+Error in setwd("/var/opt/hsa-model") : cannot change working directory
+> load("InputToModel.RData")  
+> ##  This gives us the input values from yesterday, we will add to them today. (DS, Pmm, TxC, TnC)
+> 
+> setwd("E:/backups/hsa-model_EDITED")
+> load("InputToModel.RData")  
+> source("Functions/PriestleyTaylorEquations.r")  # also includes SnowMelt (updated in Feb 2013)
+> source("Functions/NashSutcliffe.r")
+> source("InputCode/GetPredictions.r")  # Gets NOAA predictions.  fn = forcastsNOAA()  Updated March 2013
+[1] "Problem with long-term P24 or Q24"
+[1] "KSYR"
+[1] "ForecastTableExtend"
+   MxMn TMP DPT CLD WND P12 P24 Q12 Q24 T12 T24 PZP PSN PRS TYP SNW
+1    30  23  14  NA   6  37  NA   0  NA   4  NA   1  98   0  NA  NA
+2    16  19  11  NA   6   9   9   0   0   4   4   3  96   0  NA   0
+3    32  25  12  NA  11   3  48   0   1   2  NA   2  96   0  NA   0
+4    15  17  10  NA   6   3  85   0   3   1   2   3  95   0  NA   4
+5    39  36  21  NA  11  42  39   1   0   5  NA  11  83   5  NA   1
+6    30  35  28  NA  11  71  40   2   0   4   5  29  31   0  NA   1
+7    41  33  23  NA  17  61  31   1  NA   2  NA   5  32  27  NA  NA
+8    21  23  16  NA  15  21  36   0  NA   2   2   3  91   0  NA  NA
+9    33  27  15  NA  22  30  54   0  NA   3  NA   2  95   0  NA  NA
+10   19  21  14  NA  13  24  NA   0  NA   1  12   2  91   0  NA  NA
+11   33  27  12  NA  19  34  NA   0  NA   3  NA   3  89   1  NA  NA
+12   19  22  14  NA  10  21  NA   0  NA   1   5   4  81   2  NA  NA
+13   37  31  17  NA  12  30  NA  NA  NA   2  NA   3  82   3  NA  NA
+[1] "ForecastTable"
+   HR MxMn TMP DPT CLD WDR WSP P06 P12 Q06 Q12 T06 T12 POZ         POS TYP SNW
+1  12   28  25  15  NA   5   3  20  30   0   0  NA  NA   2 9.61001e+13  NA   0
+2  15   15  23  13  NA   4   3  30   5   0   0   7  NA   0 9.80000e+01  NA   0
+3  18   28  26  12  NA  35   5   0   3   0   0  NA  NA   0 9.81000e+04  NA  NA
+4  21   13  27  12  NA  34   7   5   1   0   0   9  NA   0 9.91000e+04  NA  NA
+5   0   39  23  12  NA  34   3   3  14   0   0  NA   6   1 9.90000e+01  NA  NA
+6   3   NA  20  14  NA  28   2   0  NA   0  NA   3  NA   1 9.70000e+01  NA  NA
+7   6   NA  19  14  NA  26   4   0  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+8   9   NA  17  12  NA  29   5   1  NA   0  NA   9  NA   0 9.70000e+01  NA  NA
+9  12   NA  17  11  NA  30   5   5  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+10 15   NA  21  11  NA  31   8  14  NA   0  NA  NA  NA   0 9.80000e+01  NA  NA
+11 18   NA  25   9  NA  31   8  54  NA   1  NA  NA  NA   0 9.80000e+01  NA  NA
+12 21   NA  25   7  NA  31   9  NA  NA  NA  NA   0  NA   0 9.70000e+01  NA  NA
+13  0   NA  21   9  NA  32   5  NA  NA  NA  NA  NA  NA   1 9.60000e+01  NA  NA
+14  3   NA  19  10  NA   9   1  NA  NA  NA  NA   0  NA   1 7.80000e+01  NA  NA
+15  6   NA  17   9  NA  11   1  NA  NA  NA  NA  NA  NA   1 3.60000e+01  NA  NA
+16  9   NA  14   8  NA  11   2  NA  NA  NA  NA   5  NA   1          NA  NA  NA
+17 12   NA  15   8  NA   9   3  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+18 15   NA  28  11  NA  10   4  NA  NA  NA  NA   0  NA   1          NA  NA  NA
+19 18   NA  36  12  NA  11   7  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+20  0   NA  36  18  NA  10   8  NA  NA  NA  NA  NA  NA  13          NA  NA  NA
+21  6   NA  34  25  NA  11  10  NA  NA  NA  NA  NA  NA  29          NA  NA  NA
+   CIG VIS OBV
+1    6   7  NA
+2    6   7  NA
+3    6   7  NA
+4    6   7  NA
+5    6   7  NA
+6    8   7  NA
+7    8   7  NA
+8    7   7  NA
+9    8   7  NA
+10   8   7  NA
+11   8   7  NA
+12   8   7  NA
+13   8   7  NA
+14   8   7  NA
+15   8   7  NA
+16   8   7  NA
+17   8   7  NA
+18   8   7  NA
+19   8   7  NA
+20   6   7  NA
+21   4   7  NA
+[1] "Past 8 hours of data"
+  day  time wind_mph vis_mi         weath                  Sky AirTempF DewPt_F
+1  16 07:54     Calm  10.00 Mostly Cloudy FEW035 SCT100 BKN200       24      12
+2  16 06:54     NE 6  10.00 Mostly Cloudy FEW039 SCT110 BKN210       23      10
+3  16 05:54     NE 9  10.00 Mostly Cloudy               BKN039       25      10
+4  16 04:54     NE 5  10.00      Overcast               OVC041       27      13
+5  16 03:54     N 12  10.00 Mostly Cloudy               BKN045       28      15
+6  16 01:54     NW 7  10.00      Overcast        BKN045 OVC060       30      14
+7  16 00:54     NW 8  10.00      Overcast        BKN039 OVC060       31      20
+8  15 23:54     W 14  10.00 Mostly Cloudy               BKN060       32      20
+  Temp6hrMax Temp6hrMin  RH WindChill_F HeatIndex_F Press_alt_in Press_SL_mb
+1         30         23 60%          NA          NA        29.88      1011.7
+2                       57%          16          NA        29.88      1011.7
+3                       54%          16          NA        29.86      1011.1
+4                       56%          21          NA        29.84      1010.5
+5                       57%          18          NA        29.86      1011.1
+6         36         30 52%          23          NA        29.86      1011.1
+7                       63%          24          NA        29.85      1010.8
+8                       61%          22          NA        29.84      1010.5
+  Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1                                    
+2                                    
+3                                    
+4                                    
+5                                    
+6                                    
+7                                    
+8                                    
+       KITH      KSYR
+1 -2.222222  2.222222
+2 -2.777778 -1.111111
+3 -1.111111  0.000000
+        KITH      KSYR
+1  -7.777778 -7.222222
+2 -11.111111 -8.888889
+3 -10.555556 -9.444444
+   KITH KSYR
+1 0.000    0
+2 2.286    0
+3 0.000    0
+[1] "2013-03-16 09:04:38 EDT"
+[1] "Problem with long-term P24 or Q24"
+[1] "KSYR"
+[1] "ForecastTableExtend"
+   MxMn TMP DPT CLD WND P12 P24 Q12 Q24 T12 T24 PZP PSN PRS TYP SNW
+1    30  23  14  NA   6  37  NA   0  NA   4  NA   1  98   0  NA  NA
+2    16  19  11  NA   6   9   9   0   0   4   4   3  96   0  NA   0
+3    32  25  12  NA  11   3  48   0   1   2  NA   2  96   0  NA   0
+4    15  17  10  NA   6   3  85   0   3   1   2   3  95   0  NA   4
+5    39  36  21  NA  11  42  39   1   0   5  NA  11  83   5  NA   1
+6    30  35  28  NA  11  71  40   2   0   4   5  29  31   0  NA   1
+7    41  33  23  NA  17  61  31   1  NA   2  NA   5  32  27  NA  NA
+8    21  23  16  NA  15  21  36   0  NA   2   2   3  91   0  NA  NA
+9    33  27  15  NA  22  30  54   0  NA   3  NA   2  95   0  NA  NA
+10   19  21  14  NA  13  24  NA   0  NA   1  12   2  91   0  NA  NA
+11   33  27  12  NA  19  34  NA   0  NA   3  NA   3  89   1  NA  NA
+12   19  22  14  NA  10  21  NA   0  NA   1   5   4  81   2  NA  NA
+13   37  31  17  NA  12  30  NA  NA  NA   2  NA   3  82   3  NA  NA
+[1] "ForecastTable"
+   HR MxMn TMP DPT CLD WDR WSP P06 P12 Q06 Q12 T06 T12 POZ         POS TYP SNW
+1  12   28  25  15  NA   5   3  20  30   0   0  NA  NA   2 9.61001e+13  NA   0
+2  15   15  23  13  NA   4   3  30   5   0   0   7  NA   0 9.80000e+01  NA   0
+3  18   28  26  12  NA  35   5   0   3   0   0  NA  NA   0 9.81000e+04  NA  NA
+4  21   13  27  12  NA  34   7   5   1   0   0   9  NA   0 9.91000e+04  NA  NA
+5   0   39  23  12  NA  34   3   3  14   0   0  NA   6   1 9.90000e+01  NA  NA
+6   3   NA  20  14  NA  28   2   0  NA   0  NA   3  NA   1 9.70000e+01  NA  NA
+7   6   NA  19  14  NA  26   4   0  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+8   9   NA  17  12  NA  29   5   1  NA   0  NA   9  NA   0 9.70000e+01  NA  NA
+9  12   NA  17  11  NA  30   5   5  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+10 15   NA  21  11  NA  31   8  14  NA   0  NA  NA  NA   0 9.80000e+01  NA  NA
+11 18   NA  25   9  NA  31   8  54  NA   1  NA  NA  NA   0 9.80000e+01  NA  NA
+12 21   NA  25   7  NA  31   9  NA  NA  NA  NA   0  NA   0 9.70000e+01  NA  NA
+13  0   NA  21   9  NA  32   5  NA  NA  NA  NA  NA  NA   1 9.60000e+01  NA  NA
+14  3   NA  19  10  NA   9   1  NA  NA  NA  NA   0  NA   1 7.80000e+01  NA  NA
+15  6   NA  17   9  NA  11   1  NA  NA  NA  NA  NA  NA   1 3.60000e+01  NA  NA
+16  9   NA  14   8  NA  11   2  NA  NA  NA  NA   5  NA   1          NA  NA  NA
+17 12   NA  15   8  NA   9   3  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+18 15   NA  28  11  NA  10   4  NA  NA  NA  NA   0  NA   1          NA  NA  NA
+19 18   NA  36  12  NA  11   7  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+20  0   NA  36  18  NA  10   8  NA  NA  NA  NA  NA  NA  13          NA  NA  NA
+21  6   NA  34  25  NA  11  10  NA  NA  NA  NA  NA  NA  29          NA  NA  NA
+   CIG VIS OBV
+1    6   7  NA
+2    6   7  NA
+3    6   7  NA
+4    6   7  NA
+5    6   7  NA
+6    8   7  NA
+7    8   7  NA
+8    7   7  NA
+9    8   7  NA
+10   8   7  NA
+11   8   7  NA
+12   8   7  NA
+13   8   7  NA
+14   8   7  NA
+15   8   7  NA
+16   8   7  NA
+17   8   7  NA
+18   8   7  NA
+19   8   7  NA
+20   6   7  NA
+21   4   7  NA
+[1] "Past 8 hours of data"
+  day  time wind_mph vis_mi         weath                  Sky AirTempF DewPt_F
+1  16 07:54     Calm  10.00 Mostly Cloudy FEW035 SCT100 BKN200       24      12
+2  16 06:54     NE 6  10.00 Mostly Cloudy FEW039 SCT110 BKN210       23      10
+3  16 05:54     NE 9  10.00 Mostly Cloudy               BKN039       25      10
+4  16 04:54     NE 5  10.00      Overcast               OVC041       27      13
+5  16 03:54     N 12  10.00 Mostly Cloudy               BKN045       28      15
+6  16 01:54     NW 7  10.00      Overcast        BKN045 OVC060       30      14
+7  16 00:54     NW 8  10.00      Overcast        BKN039 OVC060       31      20
+8  15 23:54     W 14  10.00 Mostly Cloudy               BKN060       32      20
+  Temp6hrMax Temp6hrMin  RH WindChill_F HeatIndex_F Press_alt_in Press_SL_mb
+1         30         23 60%          NA          NA        29.88      1011.7
+2                       57%          16          NA        29.88      1011.7
+3                       54%          16          NA        29.86      1011.1
+4                       56%          21          NA        29.84      1010.5
+5                       57%          18          NA        29.86      1011.1
+6         36         30 52%          23          NA        29.86      1011.1
+7                       63%          24          NA        29.85      1010.8
+8                       61%          22          NA        29.84      1010.5
+  Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1                                    
+2                                    
+3                                    
+4                                    
+5                                    
+6                                    
+7                                    
+8                                    
+       KITH      KSYR
+1 -2.222222  2.222222
+2 -2.777778 -1.111111
+3 -1.111111  0.000000
+        KITH      KSYR
+1  -7.777778 -7.222222
+2 -11.111111 -8.888889
+3 -10.555556 -9.444444
+   KITH KSYR
+1 0.000    0
+2 2.286    0
+3 0.000    0
+
+Warning messages:
+1: In MAVcodes[1, ] == ForecastTable$Q06[which(ForecastTable$P06[1:3] >  :
+  longer object length is not a multiple of shorter object length
+2: In MAVcodes[1, ] == ForecastTable$Q06[which(ForecastTable$P06[1:3] >  :
+  longer object length is not a multiple of shorter object length
+> source("InputCode/GetCoopNOAA_Data.r")  # Gets observed data.  fn = Past24hrData()Updated March 2013
+Error in eval(expr, envir, enclos) : object 'TableInfo' not found
+> source("InputCode/GetPredictions.r")  # Gets NOAA predictions.  fn = forcastsNOAA()  Updated March 2013
+> source("InputCode/GetCoopNOAA_Data.r")  # Gets observed data.  fn = Past24hrData()Updated March 2013
+> PastDay <- Past24hrData(state=STATE, CoopStns = COOPstationsBEST, CoopBkup = COOPstationsBACKUP, NOAAstn = NOAA_STATIONS, UseCoopPrecip = UseCoop, PrintDataTables = TRUE)  # If you don't need quality control to check the input data, change to PrintDataTables = FALSE
+> Forecasts <- forcastsNOAA(stn = NOAA_STATIONS, probCut = 30, numbDays = 3, PrintDataTables = TRUE)
+[1] "Problem with long-term P24 or Q24"
+[1] "KSYR"
+[1] "ForecastTableExtend"
+   MxMn TMP DPT CLD WND P12 P24 Q12 Q24 T12 T24 PZP PSN PRS TYP SNW
+1    30  23  14  NA   6  37  NA   0  NA   4  NA   1  98   0  NA  NA
+2    16  19  11  NA   6   9   9   0   0   4   4   3  96   0  NA   0
+3    32  25  12  NA  11   3  48   0   1   2  NA   2  96   0  NA   0
+4    15  17  10  NA   6   3  85   0   3   1   2   3  95   0  NA   4
+5    39  36  21  NA  11  42  39   1   0   5  NA  11  83   5  NA   1
+6    30  35  28  NA  11  71  40   2   0   4   5  29  31   0  NA   1
+7    41  33  23  NA  17  61  31   1  NA   2  NA   5  32  27  NA  NA
+8    21  23  16  NA  15  21  36   0  NA   2   2   3  91   0  NA  NA
+9    33  27  15  NA  22  30  54   0  NA   3  NA   2  95   0  NA  NA
+10   19  21  14  NA  13  24  NA   0  NA   1  12   2  91   0  NA  NA
+11   33  27  12  NA  19  34  NA   0  NA   3  NA   3  89   1  NA  NA
+12   19  22  14  NA  10  21  NA   0  NA   1   5   4  81   2  NA  NA
+13   37  31  17  NA  12  30  NA  NA  NA   2  NA   3  82   3  NA  NA
+[1] "ForecastTable"
+   HR MxMn TMP DPT CLD WDR WSP P06 P12 Q06 Q12 T06 T12 POZ         POS TYP SNW
+1  12   28  25  15  NA   5   3  20  30   0   0  NA  NA   2 9.61001e+13  NA   0
+2  15   15  23  13  NA   4   3  30   5   0   0   7  NA   0 9.80000e+01  NA   0
+3  18   28  26  12  NA  35   5   0   3   0   0  NA  NA   0 9.81000e+04  NA  NA
+4  21   13  27  12  NA  34   7   5   1   0   0   9  NA   0 9.91000e+04  NA  NA
+5   0   39  23  12  NA  34   3   3  14   0   0  NA   6   1 9.90000e+01  NA  NA
+6   3   NA  20  14  NA  28   2   0  NA   0  NA   3  NA   1 9.70000e+01  NA  NA
+7   6   NA  19  14  NA  26   4   0  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+8   9   NA  17  12  NA  29   5   1  NA   0  NA   9  NA   0 9.70000e+01  NA  NA
+9  12   NA  17  11  NA  30   5   5  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+10 15   NA  21  11  NA  31   8  14  NA   0  NA  NA  NA   0 9.80000e+01  NA  NA
+11 18   NA  25   9  NA  31   8  54  NA   1  NA  NA  NA   0 9.80000e+01  NA  NA
+12 21   NA  25   7  NA  31   9  NA  NA  NA  NA   0  NA   0 9.70000e+01  NA  NA
+13  0   NA  21   9  NA  32   5  NA  NA  NA  NA  NA  NA   1 9.60000e+01  NA  NA
+14  3   NA  19  10  NA   9   1  NA  NA  NA  NA   0  NA   1 7.80000e+01  NA  NA
+15  6   NA  17   9  NA  11   1  NA  NA  NA  NA  NA  NA   1 3.60000e+01  NA  NA
+16  9   NA  14   8  NA  11   2  NA  NA  NA  NA   5  NA   1          NA  NA  NA
+17 12   NA  15   8  NA   9   3  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+18 15   NA  28  11  NA  10   4  NA  NA  NA  NA   0  NA   1          NA  NA  NA
+19 18   NA  36  12  NA  11   7  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+20  0   NA  36  18  NA  10   8  NA  NA  NA  NA  NA  NA  13          NA  NA  NA
+21  6   NA  34  25  NA  11  10  NA  NA  NA  NA  NA  NA  29          NA  NA  NA
+   CIG VIS OBV
+1    6   7  NA
+2    6   7  NA
+3    6   7  NA
+4    6   7  NA
+5    6   7  NA
+6    8   7  NA
+7    8   7  NA
+8    7   7  NA
+9    8   7  NA
+10   8   7  NA
+11   8   7  NA
+12   8   7  NA
+13   8   7  NA
+14   8   7  NA
+15   8   7  NA
+16   8   7  NA
+17   8   7  NA
+18   8   7  NA
+19   8   7  NA
+20   6   7  NA
+21   4   7  NA
+[1] "Past 8 hours of data"
+  day  time wind_mph vis_mi         weath                  Sky AirTempF DewPt_F
+1  16 08:54      E 6  10.00      Overcast FEW035 BKN100 OVC200       24      12
+2  16 07:54     Calm  10.00 Mostly Cloudy FEW035 SCT100 BKN200       24      12
+3  16 06:54     NE 6  10.00 Mostly Cloudy FEW039 SCT110 BKN210       23      10
+4  16 05:54     NE 9  10.00 Mostly Cloudy               BKN039       25      10
+5  16 04:54     NE 5  10.00      Overcast               OVC041       27      13
+6  16 03:54     N 12  10.00 Mostly Cloudy               BKN045       28      15
+7  16 01:54     NW 7  10.00      Overcast        BKN045 OVC060       30      14
+8  16 00:54     NW 8  10.00      Overcast        BKN039 OVC060       31      20
+  Temp6hrMax Temp6hrMin  RH WindChill_F HeatIndex_F Press_alt_in Press_SL_mb
+1                       60%          17          NA        29.89      1012.2
+2         30         23 60%          NA          NA        29.88      1011.7
+3                       57%          16          NA        29.88      1011.7
+4                       54%          16          NA        29.86      1011.1
+5                       56%          21          NA        29.84      1010.5
+6                       57%          18          NA        29.86      1011.1
+7         36         30 52%          23          NA        29.86      1011.1
+8                       63%          24          NA        29.85      1010.8
+  Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1                                    
+2                                    
+3                                    
+4                                    
+5                                    
+6                                    
+7                                    
+8                                    
+       KITH      KSYR
+1 -2.222222 -1.111111
+2 -2.777778 -1.111111
+3 -1.111111  0.000000
+        KITH      KSYR
+1  -7.777778 -7.222222
+2 -11.111111 -8.888889
+3 -10.555556 -9.444444
+   KITH KSYR
+1 0.000    0
+2 2.286    0
+3 0.000    0
+Warning message:
+In MAVcodes[1, ] == ForecastTable$Q06[which(ForecastTable$P06[1:3] >  :
+  longer object length is not a multiple of shorter object length
+> match(c(2,5), c(1,2,3,4,5))
+[1] 2 5
+> match(c(2,6), c(1,2,3,4,5))
+[1]  2 NA
+> match(c(2,2), c(1,2,3,4,5))
+[1] 2 2
+> match(c(2,2), c(stn = c("KITH", "KSYR") 1,2,3,4,5))
+Error: unexpected numeric constant in "match(c(2,2), c(stn = c("KITH", "KSYR") 1"
+>  probCut = 30
+> stn = c("KITH", "KSYR")
+> numbDays = 3
+> MAVcodes<-rbind(c(0,1,2,3,4,5,6), c(0,0.09, 0.24, 0.49, 0.99, 1.99, 2.5)*25.4) 
+> forecasts <- read.table(paste("http://www.nws.noaa.gov/cgi-bin/mos/getmav.pl?sta=", stn[i], sep=""),skip=7, fill=TRUE)[1:20,]
+> f1 <- apply(forecasts,1,as.character) # changes everything to character, and transposes table
+> tis <- f1[1,]  # Row names in web table, column names now
+> tis[which(tis=="X/N" | tis=="N/X")] <- "MxMn"# Rename max/min temp column
+> f2 <- f1[-1,]
+> colnames(f2) <- tis
+> ForecastTable <- suppressWarnings(data.frame(apply(f2,2,as.numeric)))    # Convert to numeric. Final data frame
+> forecasts <- read.table(paste("http://www.nws.noaa.gov/cgi-bin/mos/getmex.pl?sta=", stn[i], sep=""), skip=7, fill=TRUE, colClasses="character", row.names=NULL)[1:16,1:14]
+> ForecastTable$Q06[which(ForecastTable$P06[1:3] > probCut)]tis <- f1[1,]  # Row names in web table, column names now
+Error: unexpected symbol in "ForecastTable$Q06[which(ForecastTable$P06[1:3] > probCut)]tis"
+> tis[which(tis=="X/N" | tis=="N/X")] <- "MxMn"# Rename max/min temp column
+> f2 <- f1[-1,]
+> colnames(f2) <- tis
+> ForecastTableExtend <- suppressWarnings(data.frame(apply(f2,2,as.numeric)))    # Convert to numeric. Final data frame
+> f1 <- apply(forecasts,1,function(x) gsub("|","",x, fixed=TRUE)) # changes everything to character, and transposes table
+> tis <- f1[1,]  # Row names in web table, column names now
+> tis[which(tis=="X/N" | tis=="N/X")] <- "MxMn"# Rename max/min temp column
+> f2 <- f1[-1,]
+> colnames(f2) <- tis
+> ForecastTableExtend <- suppressWarnings(data.frame(apply(f2,2,as.numeric)))    # Convert to numeric. Final data frame
+> sum(MAVcodes[2, match(ForecastTable$Q06[which(ForecastTable$P06[1:3] > probCut)], MAVcodes[1,] )],precip6)  
+Error: object 'precip6' not found
+> MAVcodes[2, match(ForecastTable$Q06[which(ForecastTable$P06[1:3] > probCut)], MAVcodes[1,] )]
+[1] 0 0
+> ForecastTable$Q06[which(ForecastTable$P06[1:3] > probCut)]
+[1] 0 0
+> ForecastTable$Q06
+ [1]  0  0  0  0  0  0  0  0  0  0  1 NA NA NA NA NA NA NA NA NA NA
+> ForecastTable$P06[1:3]
+[1] 32 36  0
+> ForecastTable$P06
+ [1] 32 36  0  2  3  0  1  3 11 25 63 NA NA NA NA NA NA NA NA NA NA
+> ForecastTable$Q06[which(ForecastTable$P06[3:5] > probCut)]
+numeric(0)
+> Precip[1,i] <- sum(MAVcodes[2, match(ForecastTable$Q06[which(ForecastTable$P06[3:5] > probCut)], MAVcodes[1,] )],precip6)  
+Error: object 'precip6' not found
+> MAVcodes[2, match(ForecastTable$Q06[which(ForecastTable$P06[3:5] > probCut)], MAVcodes[1,] )]
+numeric(0)
+> sum(MAVcodes[2, match(ForecastTable$Q06[which(ForecastTable$P06[3:5] > probCut)], MAVcodes[1,] )], 4)
+[1] 4
+> sum(MAVcodes[2, match(ForecastTable$Q06[which(ForecastTable$P06[3:5] > probCut)], MAVcodes[1,] )], 0)
+[1] 0
+> which(ForecastTableExtend$P12[(2*j-3):(2*j-2)] > probCut)
+Error in which(ForecastTableExtend$P12[(2 * j - 3):(2 * j - 2)] > probCut) : 
+  object 'j' not found
+> j=2
+> which(ForecastTableExtend$P12[(2*j-3):(2*j-2)] > probCut)
+[1] 1
+> ForecastTableExtend$P12
+ [1] 52  6  3  3 54 72 56 19 28 23 31 20 29
+> match(ForecastTableExtend$Q12[which(ForecastTableExtend$P12[(2*j-3):(2*j-2)] > probCut)], MAVcodes[1,] )
+[1] 2
+> MAVcodes[2, match(ForecastTableExtend$Q12[which(ForecastTableExtend$P12[(2*j-3):(2*j-2)] > probCut)], MAVcodes[1,] )]
+[1] 2.286
+> sum(MAVcodes[2, match(ForecastTableExtend$Q12[which(ForecastTableExtend$P12[(2*j-3):(2*j-2)] > probCut)], MAVcodes[1,] )],0)
+[1] 2.286
+> sum(MAVcodes[2, match(ForecastTableExtend$Q12[which(ForecastTableExtend$P12[3:4] > probCut)], MAVcodes[1,] )],0)
+[1] 0
+> ForecastTableExtend$Q12
+ [1]  1  0  0  0  1  2  1  0  0  0  0  0 NA
+> Forecasts <- forcastsNOAA(stn = NOAA_STATIONS, probCut = 30, numbDays = 3, PrintDataTables = TRUE)
+[1] "Problem with long-term P24 or Q24"
+[1] "KSYR"
+[1] "ForecastTableExtend"
+   MxMn TMP DPT CLD WND P12 P24 Q12 Q24 T12 T24 PZP PSN PRS TYP SNW
+1    30  23  14  NA   6  37  NA   0  NA   4  NA   1  98   0  NA  NA
+2    16  19  11  NA   6   9   9   0   0   4   4   3  96   0  NA   0
+3    32  25  12  NA  11   3  48   0   1   2  NA   2  96   0  NA   0
+4    15  17  10  NA   6   3  85   0   3   1   2   3  95   0  NA   4
+5    39  36  21  NA  11  42  39   1   0   5  NA  11  83   5  NA   1
+6    30  35  28  NA  11  71  40   2   0   4   5  29  31   0  NA   1
+7    41  33  23  NA  17  61  31   1  NA   2  NA   5  32  27  NA  NA
+8    21  23  16  NA  15  21  36   0  NA   2   2   3  91   0  NA  NA
+9    33  27  15  NA  22  30  54   0  NA   3  NA   2  95   0  NA  NA
+10   19  21  14  NA  13  24  NA   0  NA   1  12   2  91   0  NA  NA
+11   33  27  12  NA  19  34  NA   0  NA   3  NA   3  89   1  NA  NA
+12   19  22  14  NA  10  21  NA   0  NA   1   5   4  81   2  NA  NA
+13   37  31  17  NA  12  30  NA  NA  NA   2  NA   3  82   3  NA  NA
+[1] "ForecastTable"
+   HR MxMn TMP DPT CLD WDR WSP P06 P12 Q06 Q12 T06 T12 POZ         POS TYP SNW
+1  12   28  25  15  NA   5   3  20  30   0   0  NA  NA   2 9.61001e+13  NA   0
+2  15   15  23  13  NA   4   3  30   5   0   0   7  NA   0 9.80000e+01  NA   0
+3  18   28  26  12  NA  35   5   0   3   0   0  NA  NA   0 9.81000e+04  NA  NA
+4  21   13  27  12  NA  34   7   5   1   0   0   9  NA   0 9.91000e+04  NA  NA
+5   0   39  23  12  NA  34   3   3  14   0   0  NA   6   1 9.90000e+01  NA  NA
+6   3   NA  20  14  NA  28   2   0  NA   0  NA   3  NA   1 9.70000e+01  NA  NA
+7   6   NA  19  14  NA  26   4   0  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+8   9   NA  17  12  NA  29   5   1  NA   0  NA   9  NA   0 9.70000e+01  NA  NA
+9  12   NA  17  11  NA  30   5   5  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+10 15   NA  21  11  NA  31   8  14  NA   0  NA  NA  NA   0 9.80000e+01  NA  NA
+11 18   NA  25   9  NA  31   8  54  NA   1  NA  NA  NA   0 9.80000e+01  NA  NA
+12 21   NA  25   7  NA  31   9  NA  NA  NA  NA   0  NA   0 9.70000e+01  NA  NA
+13  0   NA  21   9  NA  32   5  NA  NA  NA  NA  NA  NA   1 9.60000e+01  NA  NA
+14  3   NA  19  10  NA   9   1  NA  NA  NA  NA   0  NA   1 7.80000e+01  NA  NA
+15  6   NA  17   9  NA  11   1  NA  NA  NA  NA  NA  NA   1 3.60000e+01  NA  NA
+16  9   NA  14   8  NA  11   2  NA  NA  NA  NA   5  NA   1          NA  NA  NA
+17 12   NA  15   8  NA   9   3  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+18 15   NA  28  11  NA  10   4  NA  NA  NA  NA   0  NA   1          NA  NA  NA
+19 18   NA  36  12  NA  11   7  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+20  0   NA  36  18  NA  10   8  NA  NA  NA  NA  NA  NA  13          NA  NA  NA
+21  6   NA  34  25  NA  11  10  NA  NA  NA  NA  NA  NA  29          NA  NA  NA
+   CIG VIS OBV
+1    6   7  NA
+2    6   7  NA
+3    6   7  NA
+4    6   7  NA
+5    6   7  NA
+6    8   7  NA
+7    8   7  NA
+8    7   7  NA
+9    8   7  NA
+10   8   7  NA
+11   8   7  NA
+12   8   7  NA
+13   8   7  NA
+14   8   7  NA
+15   8   7  NA
+16   8   7  NA
+17   8   7  NA
+18   8   7  NA
+19   8   7  NA
+20   6   7  NA
+21   4   7  NA
+[1] "Past 8 hours of data"
+  day  time wind_mph vis_mi         weath                  Sky AirTempF DewPt_F
+1  16 08:54      E 6  10.00      Overcast FEW035 BKN100 OVC200       24      12
+2  16 07:54     Calm  10.00 Mostly Cloudy FEW035 SCT100 BKN200       24      12
+3  16 06:54     NE 6  10.00 Mostly Cloudy FEW039 SCT110 BKN210       23      10
+4  16 05:54     NE 9  10.00 Mostly Cloudy               BKN039       25      10
+5  16 04:54     NE 5  10.00      Overcast               OVC041       27      13
+6  16 03:54     N 12  10.00 Mostly Cloudy               BKN045       28      15
+7  16 01:54     NW 7  10.00      Overcast        BKN045 OVC060       30      14
+8  16 00:54     NW 8  10.00      Overcast        BKN039 OVC060       31      20
+  Temp6hrMax Temp6hrMin  RH WindChill_F HeatIndex_F Press_alt_in Press_SL_mb
+1                       60%          17          NA        29.89      1012.2
+2         30         23 60%          NA          NA        29.88      1011.7
+3                       57%          16          NA        29.88      1011.7
+4                       54%          16          NA        29.86      1011.1
+5                       56%          21          NA        29.84      1010.5
+6                       57%          18          NA        29.86      1011.1
+7         36         30 52%          23          NA        29.86      1011.1
+8                       63%          24          NA        29.85      1010.8
+  Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1                                    
+2                                    
+3                                    
+4                                    
+5                                    
+6                                    
+7                                    
+8                                    
+       KITH      KSYR
+1 -2.222222 -1.111111
+2 -2.777778 -1.111111
+3 -1.111111  0.000000
+        KITH      KSYR
+1  -7.777778 -7.222222
+2 -11.111111 -8.888889
+3 -10.555556 -9.444444
+   KITH KSYR
+1 0.000    0
+2 2.286    0
+3 0.000    0
+Warning message:
+In MAVcodes[1, ] == ForecastTable$Q06[which(ForecastTable$P06[1:3] >  :
+  longer object length is not a multiple of shorter object length
+> source("InputCode/GetPredictions.r")  # Gets NOAA predictions.  fn = forcastsNOAA()  Updated March 2013
+> Forecasts <- forcastsNOAA(stn = NOAA_STATIONS, probCut = 30, numbDays = 3, PrintDataTables = TRUE)
+[1] "Using Q12 instead of Q24"
+[1] "KSYR"
+[1] "ForecastTableExtend"
+   MxMn TMP DPT CLD WND P12 P24 Q12 Q24 T12 T24 PZP PSN PRS TYP SNW
+1    30  23  14  NA   6  37  NA   0  NA   4  NA   1  98   0  NA  NA
+2    16  19  11  NA   6   9   9   0   0   4   4   3  96   0  NA   0
+3    32  25  12  NA  11   3  48   0   1   2  NA   2  96   0  NA   0
+4    15  17  10  NA   6   3  85   0   3   1   2   3  95   0  NA   4
+5    39  36  21  NA  11  42  39   1   0   5  NA  11  83   5  NA   1
+6    30  35  28  NA  11  71  40   2   0   4   5  29  31   0  NA   1
+7    41  33  23  NA  17  61  31   1  NA   2  NA   5  32  27  NA  NA
+8    21  23  16  NA  15  21  36   0  NA   2   2   3  91   0  NA  NA
+9    33  27  15  NA  22  30  54   0  NA   3  NA   2  95   0  NA  NA
+10   19  21  14  NA  13  24  NA   0  NA   1  12   2  91   0  NA  NA
+11   33  27  12  NA  19  34  NA   0  NA   3  NA   3  89   1  NA  NA
+12   19  22  14  NA  10  21  NA   0  NA   1   5   4  81   2  NA  NA
+13   37  31  17  NA  12  30  NA  NA  NA   2  NA   3  82   3  NA  NA
+[1] "ForecastTable"
+   HR MxMn TMP DPT CLD WDR WSP P06 P12 Q06 Q12 T06 T12 POZ         POS TYP SNW
+1  12   28  25  15  NA   5   3  20  30   0   0  NA  NA   2 9.61001e+13  NA   0
+2  15   15  23  13  NA   4   3  30   5   0   0   7  NA   0 9.80000e+01  NA   0
+3  18   28  26  12  NA  35   5   0   3   0   0  NA  NA   0 9.81000e+04  NA  NA
+4  21   13  27  12  NA  34   7   5   1   0   0   9  NA   0 9.91000e+04  NA  NA
+5   0   39  23  12  NA  34   3   3  14   0   0  NA   6   1 9.90000e+01  NA  NA
+6   3   NA  20  14  NA  28   2   0  NA   0  NA   3  NA   1 9.70000e+01  NA  NA
+7   6   NA  19  14  NA  26   4   0  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+8   9   NA  17  12  NA  29   5   1  NA   0  NA   9  NA   0 9.70000e+01  NA  NA
+9  12   NA  17  11  NA  30   5   5  NA   0  NA  NA  NA   1 9.80000e+01  NA  NA
+10 15   NA  21  11  NA  31   8  14  NA   0  NA  NA  NA   0 9.80000e+01  NA  NA
+11 18   NA  25   9  NA  31   8  54  NA   1  NA  NA  NA   0 9.80000e+01  NA  NA
+12 21   NA  25   7  NA  31   9  NA  NA  NA  NA   0  NA   0 9.70000e+01  NA  NA
+13  0   NA  21   9  NA  32   5  NA  NA  NA  NA  NA  NA   1 9.60000e+01  NA  NA
+14  3   NA  19  10  NA   9   1  NA  NA  NA  NA   0  NA   1 7.80000e+01  NA  NA
+15  6   NA  17   9  NA  11   1  NA  NA  NA  NA  NA  NA   1 3.60000e+01  NA  NA
+16  9   NA  14   8  NA  11   2  NA  NA  NA  NA   5  NA   1          NA  NA  NA
+17 12   NA  15   8  NA   9   3  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+18 15   NA  28  11  NA  10   4  NA  NA  NA  NA   0  NA   1          NA  NA  NA
+19 18   NA  36  12  NA  11   7  NA  NA  NA  NA  NA  NA   1          NA  NA  NA
+20  0   NA  36  18  NA  10   8  NA  NA  NA  NA  NA  NA  13          NA  NA  NA
+21  6   NA  34  25  NA  11  10  NA  NA  NA  NA  NA  NA  29          NA  NA  NA
+   CIG VIS OBV
+1    6   7  NA
+2    6   7  NA
+3    6   7  NA
+4    6   7  NA
+5    6   7  NA
+6    8   7  NA
+7    8   7  NA
+8    7   7  NA
+9    8   7  NA
+10   8   7  NA
+11   8   7  NA
+12   8   7  NA
+13   8   7  NA
+14   8   7  NA
+15   8   7  NA
+16   8   7  NA
+17   8   7  NA
+18   8   7  NA
+19   8   7  NA
+20   6   7  NA
+21   4   7  NA
+[1] "Past 8 hours of data"
+  day  time wind_mph vis_mi         weath                  Sky AirTempF DewPt_F
+1  16 08:54      E 6  10.00      Overcast FEW035 BKN100 OVC200       24      12
+2  16 07:54     Calm  10.00 Mostly Cloudy FEW035 SCT100 BKN200       24      12
+3  16 06:54     NE 6  10.00 Mostly Cloudy FEW039 SCT110 BKN210       23      10
+4  16 05:54     NE 9  10.00 Mostly Cloudy               BKN039       25      10
+5  16 04:54     NE 5  10.00      Overcast               OVC041       27      13
+6  16 03:54     N 12  10.00 Mostly Cloudy               BKN045       28      15
+7  16 01:54     NW 7  10.00      Overcast        BKN045 OVC060       30      14
+8  16 00:54     NW 8  10.00      Overcast        BKN039 OVC060       31      20
+  Temp6hrMax Temp6hrMin  RH WindChill_F HeatIndex_F Press_alt_in Press_SL_mb
+1                       60%          17          NA        29.89      1012.2
+2         30         23 60%          NA          NA        29.88      1011.7
+3                       57%          16          NA        29.88      1011.7
+4                       54%          16          NA        29.86      1011.1
+5                       56%          21          NA        29.84      1010.5
+6                       57%          18          NA        29.86      1011.1
+7         36         30 52%          23          NA        29.86      1011.1
+8                       63%          24          NA        29.85      1010.8
+  Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1                                    
+2                                    
+3                                    
+4                                    
+5                                    
+6                                    
+7                                    
+8                                    
+       KITH      KSYR
+1 -2.222222 -1.111111
+2 -2.777778 -1.111111
+3 -1.111111  0.000000
+        KITH      KSYR
+1  -7.777778 -7.222222
+2 -11.111111 -8.888889
+3 -10.555556 -9.444444
+   KITH KSYR
+1 0.000    0
+2 2.286    0
+3 0.000    0
+> Pred_P <- apply(Forecasts$Pmm, MARGIN=1, mean)
+> Pred_Tx <- apply(Forecasts$MxT, MARGIN=1, mean)
+> Pred_Tn <- apply(Forecasts$MnT, MARGIN=1, mean)
+> tail(DS)  ## print this to make sure we have no duplications...
+[1] "2013-01-10" "2013-01-11" "2013-01-12" "2013-01-13" "2013-01-14"
+[6] "2013-01-15"
+> LAT_DEG <- 42.38
+> SM <- SnowMelt(Date=DS, precip_mm=Pmm, Tmax_C=TxC, Tmin_C=TnC, lat_deg=LAT_DEG)
+> rsm <- SM$SnowMelt_mm + SM$Rain_mm  ## new input to stream function
+> objects()
+ [1] "AtmosphericEmissivity" "COOPstationsBACKUP"    "COOPstationsBEST"     
+ [4] "DAYS_PREDICTION"       "declination"           "DS"                   
+ [7] "EnvirEnergy"           "EstCloudiness"         "EvapHeat"             
+[10] "f1"                    "f2"                    "forcastsNOAA"         
+[13] "forecasts"             "Forecasts"             "ForecastTable"        
+[16] "ForecastTableExtend"   "GroundHeat"            "i"                    
+[19] "j"                     "LAT_DEG"               "Longwave"             
+[22] "MAVcodes"              "NashSutcliffe"         "NashSutcliffe2"       
+[25] "NetRad"                "NOAA_STATIONS"         "numbDays"             
+[28] "P_cutoff"              "Past24hrData"          "PastDay"              
+[31] "PETfromTemp"           "Pmm"                   "PotentialSolar"       
+[34] "Pred_P"                "Pred_Tn"               "Pred_Tx"              
+[37] "Predictions"           "probCut"               "RainHeat"             
+[40] "rsm"                   "SatVaporDensity"       "SatVapPresSlope"      
+[43] "SensibleHeat"          "slopefactor"           "SM"                   
+[46] "SnowMelt"              "Solar"                 "solarangle"           
+[49] "solaraspect"           "STATE"                 "stn"                  
+[52] "tis"                   "TnC"                   "transmissivity"       
+[55] "TxC"                   "UseCoop"              
+> load("PrevRun.RData")
+> OldMR <- TodaysMR
+> save(list=c("DS", "Pmm", "TnC", "TxC", "SM"), file="InputToModel.RData")
+> TodaysMR<-StreamflowFN(
++ Depth= 500, # Average wshd soil depth (mm) [don't need if AWC and SAT entered]
++ SATper= 0.45 , # Porosity (fraction)[don't need if AWC and SAT entered]
++ AWCper= 0.35, # Available Water Capacity (AWC) (fraction) [don't need if AWC and SAT entered]
++ #AWC= Depth*AWCper, # AWC as a depth (mm)
++ #SAT= Depth*SATper,# porosity as a depth (mm)
++ latitudeDegrees= LAT_DEG, 
++ P= rsm, # Rain + Snow melt (mm)
++ dateSeries= ObsFor$Date, # Date series (format should be: "2003-02-36")
++ Tmax= ObsFor$TxC, # Max daily temperature (C)
++ Tmin= ObsFor$TnC, # Max daily temperature (C)
++ BF1= 1, #  Assume initial baseflow is 1 mm/day
++ percentImpervious= 0, # Percent of the watershed that is impervious
++ no_wet_class= 10, # The number of wetness classes for saturated area designation
++ PreviousOutput= NULL, # Allows us to take previous model output to initiate the model
++ Tp = 0.35*6.5 + 3.5, # Time to peak (hours [0.35*Tc+3.5])
++ StartCond = "avg"# Watershed conditions before first day of run ("wet", "dry", "avg")
++ )
+Error: could not find function "StreamflowFN"
+> source("Functions/StreamFN_UNCALIBRATED.r")# UPDATE?   StreamFN_UNCALIBRATED.r
+> TodaysMR<-StreamflowFN(
++ Depth= 500, # Average wshd soil depth (mm) [don't need if AWC and SAT entered]
++ SATper= 0.45 , # Porosity (fraction)[don't need if AWC and SAT entered]
++ AWCper= 0.35, # Available Water Capacity (AWC) (fraction) [don't need if AWC and SAT entered]
++ #AWC= Depth*AWCper, # AWC as a depth (mm)
++ #SAT= Depth*SATper,# porosity as a depth (mm)
++ latitudeDegrees= LAT_DEG, 
++ P= rsm, # Rain + Snow melt (mm)
++ dateSeries= ObsFor$Date, # Date series (format should be: "2003-02-36")
++ Tmax= ObsFor$TxC, # Max daily temperature (C)
++ Tmin= ObsFor$TnC, # Max daily temperature (C)
++ BF1= 1, #  Assume initial baseflow is 1 mm/day
++ percentImpervious= 0, # Percent of the watershed that is impervious
++ no_wet_class= 10, # The number of wetness classes for saturated area designation
++ PreviousOutput= NULL, # Allows us to take previous model output to initiate the model
++ Tp = 0.35*6.5 + 3.5, # Time to peak (hours [0.35*Tc+3.5])
++ StartCond = "avg"# Watershed conditions before first day of run ("wet", "dry", "avg")
++ )
+Error in StreamflowFN(Depth = 500, SATper = 0.45, AWCper = 0.35, latitudeDegrees = LAT_DEG,  : 
+  object 'ObsFor' not found
+> ObsFor = data.frame(Date=DS,Pmm=Pmm, TxC=TxC, TnC=TnC)
+> 
+> TodaysMR<-StreamflowFN(
++ Depth= 500, # Average wshd soil depth (mm) [don't need if AWC and SAT entered]
++ SATper= 0.45 , # Porosity (fraction)[don't need if AWC and SAT entered]
++ AWCper= 0.35, # Available Water Capacity (AWC) (fraction) [don't need if AWC and SAT entered]
++ #AWC= Depth*AWCper, # AWC as a depth (mm)
++ #SAT= Depth*SATper,# porosity as a depth (mm)
++ latitudeDegrees= LAT_DEG, 
++ P= rsm, # Rain + Snow melt (mm)
++ dateSeries= ObsFor$Date, # Date series (format should be: "2003-02-36")
++ Tmax= ObsFor$TxC, # Max daily temperature (C)
++ Tmin= ObsFor$TnC, # Max daily temperature (C)
++ BF1= 1, #  Assume initial baseflow is 1 mm/day
++ percentImpervious= 0, # Percent of the watershed that is impervious
++ no_wet_class= 10, # The number of wetness classes for saturated area designation
++ PreviousOutput= NULL, # Allows us to take previous model output to initiate the model
++ Tp = 0.35*6.5 + 3.5, # Time to peak (hours [0.35*Tc+3.5])
++ StartCond = "avg"# Watershed conditions before first day of run ("wet", "dry", "avg")
++ )
+Error in StreamflowFN(Depth = 500, SATper = 0.45, AWCper = 0.35, latitudeDegrees = LAT_DEG,  : 
+  could not find function "PET_fromTemp"
+> source("Functions/PriestleyTaylorEquations.r")  # also includes SnowMelt (updated in Feb 2013)
+> source("Functions/NashSutcliffe.r")
+> TodaysMR<-StreamflowFN(
++ Depth= 500, # Average wshd soil depth (mm) [don't need if AWC and SAT entered]
++ SATper= 0.45 , # Porosity (fraction)[don't need if AWC and SAT entered]
++ AWCper= 0.35, # Available Water Capacity (AWC) (fraction) [don't need if AWC and SAT entered]
++ #AWC= Depth*AWCper, # AWC as a depth (mm)
++ #SAT= Depth*SATper,# porosity as a depth (mm)
++ latitudeDegrees= LAT_DEG, 
++ P= rsm, # Rain + Snow melt (mm)
++ dateSeries= ObsFor$Date, # Date series (format should be: "2003-02-36")
++ Tmax= ObsFor$TxC, # Max daily temperature (C)
++ Tmin= ObsFor$TnC, # Max daily temperature (C)
++ BF1= 1, #  Assume initial baseflow is 1 mm/day
++ percentImpervious= 0, # Percent of the watershed that is impervious
++ no_wet_class= 10, # The number of wetness classes for saturated area designation
++ PreviousOutput= NULL, # Allows us to take previous model output to initiate the model
++ Tp = 0.35*6.5 + 3.5, # Time to peak (hours [0.35*Tc+3.5])
++ StartCond = "avg"# Watershed conditions before first day of run ("wet", "dry", "avg")
++ )
+Error in StreamflowFN(Depth = 500, SATper = 0.45, AWCper = 0.35, latitudeDegrees = LAT_DEG,  : 
+  could not find function "PET_fromTemp"
+> library("EcoHydRology)
+
++ > library(EcoHydRology)
+Loading required package: operators
+
+Attaching package: ‘operators’
+
+The following object(s) are masked from ‘package:base’:
+
+    options
+
+Loading required package: topmodel
+Loading required package: DEoptim
+
+DEoptim package
+Differential Evolution algorithm in R
+Authors: D. Ardia, K. Mullen, B. Peterson and J. Ulrich
+
+
+Attaching package: ‘EcoHydRology’
+
+The following object(s) are masked _by_ ‘.GlobalEnv’:
+
+    AtmosphericEmissivity, declination, EnvirEnergy, EstCloudiness,
+    EvapHeat, GroundHeat, Longwave, NetRad, PotentialSolar, RainHeat,
+    SatVaporDensity, SatVapPresSlope, SensibleHeat, slopefactor,
+    SnowMelt, Solar, solarangle, solaraspect, transmissivity
+
+> TodaysMR<-StreamflowFN(
++ Depth= 500, # Average wshd soil depth (mm) [don't need if AWC and SAT entered]
++ SATper= 0.45 , # Porosity (fraction)[don't need if AWC and SAT entered]
++ AWCper= 0.35, # Available Water Capacity (AWC) (fraction) [don't need if AWC and SAT entered]
++ #AWC= Depth*AWCper, # AWC as a depth (mm)
++ #SAT= Depth*SATper,# porosity as a depth (mm)
++ latitudeDegrees= LAT_DEG, 
++ P= rsm, # Rain + Snow melt (mm)
++ dateSeries= ObsFor$Date, # Date series (format should be: "2003-02-36")
++ Tmax= ObsFor$TxC, # Max daily temperature (C)
++ Tmin= ObsFor$TnC, # Max daily temperature (C)
++ BF1= 1, #  Assume initial baseflow is 1 mm/day
++ percentImpervious= 0, # Percent of the watershed that is impervious
++ no_wet_class= 10, # The number of wetness classes for saturated area designation
++ PreviousOutput= NULL, # Allows us to take previous model output to initiate the model
++ Tp = 0.35*6.5 + 3.5, # Time to peak (hours [0.35*Tc+3.5])
++ StartCond = "avg"# Watershed conditions before first day of run ("wet", "dry", "avg")
++ )
+Error in ifelse(StartCond == "wet", Se_min, Se_min + C1 * (AWC - SoilWater[1])) : 
+  object 'C1' not found
+> source("Functions/StreamFN_UNCALIBRATED.r")# UPDATE?   StreamFN_UNCALIBRATED.r
+Error in source("Functions/StreamFN_UNCALIBRATED.r") : 
+  Functions/StreamFN_UNCALIBRATED.r:16:41: unexpected symbol
+15:                                         C1                      = 3.1           # Watershed analysis
+16:                                         Ia_coef
+                                           ^
+> source("Functions/StreamFN_UNCALIBRATED.r")# UPDATE?   StreamFN_UNCALIBRATED.r
+> TodaysMR<-StreamflowFN(
++ Depth= 500, # Average wshd soil depth (mm) [don't need if AWC and SAT entered]
++ SATper= 0.45 , # Porosity (fraction)[don't need if AWC and SAT entered]
++ AWCper= 0.35, # Available Water Capacity (AWC) (fraction) [don't need if AWC and SAT entered]
++ #AWC= Depth*AWCper, # AWC as a depth (mm)
++ #SAT= Depth*SATper,# porosity as a depth (mm)
++ latitudeDegrees= LAT_DEG, 
++ P= rsm, # Rain + Snow melt (mm)
++ dateSeries= ObsFor$Date, # Date series (format should be: "2003-02-36")
++ Tmax= ObsFor$TxC, # Max daily temperature (C)
++ Tmin= ObsFor$TnC, # Max daily temperature (C)
++ BF1= 1, #  Assume initial baseflow is 1 mm/day
++ percentImpervious= 0, # Percent of the watershed that is impervious
++ no_wet_class= 10, # The number of wetness classes for saturated area designation
++ PreviousOutput= NULL, # Allows us to take previous model output to initiate the model
++ Tp = 0.35*6.5 + 3.5, # Time to peak (hours [0.35*Tc+3.5])
++ StartCond = "avg"# Watershed conditions before first day of run ("wet", "dry", "avg")
++ )
+> summary(TodaysMR)
+  dateSeries         rain_snowmelt      modeled_flow        baseflow      
+ Length:1973-09-27   Min.   :  0.000   Min.   : 0.0000   Min.   :0.00000  
+ Class :NA           1st Qu.:  0.000   1st Qu.: 0.1098   1st Qu.:0.08148  
+ Mode  :NA           Median :  0.000   Median : 0.8624   Median :0.82930  
+                     Mean   :  2.849   Mean   : 1.4519   Mean   :1.22947  
+                     3rd Qu.:  2.032   3rd Qu.: 2.0112   3rd Qu.:1.95301  
+                     Max.   :112.522   Max.   :58.0430   Max.   :7.69963  
+  OverlandFlow     ShallowInterflow        totQ             deltaP        
+ Min.   : 0.0000   Min.   :0.000000   Min.   : 0.0000   Min.   : -3.5000  
+ 1st Qu.: 0.0000   1st Qu.:0.000000   1st Qu.: 0.0000   1st Qu.: -2.1594  
+ Median : 0.0000   Median :0.000000   Median : 0.0000   Median : -0.1774  
+ Mean   : 0.1812   Mean   :0.041274   Mean   : 0.2223   Mean   :  1.3319  
+ 3rd Qu.: 0.0000   3rd Qu.:0.002025   3rd Qu.: 0.0000   3rd Qu.:  0.6923  
+ Max.   :50.9486   Max.   :9.781802   Max.   :62.5136   Max.   :111.6621  
+       Pe                Se               Ia           SoilWater    
+ Min.   :  0.000   Min.   : 78.00   Min.   : 3.900   Min.   : 94.5  
+ 1st Qu.:  0.000   1st Qu.: 78.37   1st Qu.: 3.918   1st Qu.:146.3  
+ Median :  0.000   Median : 85.19   Median : 4.259   Median :172.7  
+ Mean   :  1.266   Mean   :125.14   Mean   : 6.257   Mean   :159.8  
+ 3rd Qu.:  0.000   3rd Qu.:167.17   3rd Qu.: 8.358   3rd Qu.:174.9  
+ Max.   :107.762   Max.   :327.54   Max.   :16.377   Max.   :175.0  
+ quickflow_combined  impervRunoff          excess             Tmax       
+ Min.   : 0.00000   Min.   :  0.0000   Min.   :  0.000   Min.   :-12.22  
+ 1st Qu.: 0.00000   1st Qu.:  0.0000   1st Qu.:  0.000   1st Qu.:  5.56  
+ Median : 0.00000   Median :  0.0000   Median :  0.000   Median : 16.67  
+ Mean   : 0.22247   Mean   :  2.3226   Mean   :  1.459   Mean   : 15.11  
+ 3rd Qu.: 0.01171   3rd Qu.:  0.4423   3rd Qu.:  0.000   3rd Qu.: 24.44  
+ Max.   :51.13408   Max.   :111.4121   Max.   :111.662   Max.   : 37.22  
+      Tmin             Q2           MaxWetClass           ET        
+ Min.   :-26.110   Mode :logical   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.: -2.222   FALSE:1365      1st Qu.:0.0000   1st Qu.:0.1442  
+ Median :  5.000   NA's :0         Median :0.0000   Median :0.9235  
+ Mean   :  4.466                   Mean   :0.5766   Mean   :1.2276  
+ 3rd Qu.: 12.220                   3rd Qu.:1.0000   3rd Qu.:2.2582  
+ Max.   : 25.000                   Max.   :8.0000   Max.   :3.5000  
+Warning message:
+In as.POSIXlt.Date(x) : NAs introduced by coercion
+> tail(TodaysMR)
+     dateSeries rain_snowmelt modeled_flow  baseflow OverlandFlow
+1360 2013-01-10       0.00000    0.6718901 0.6718901    0.0000000
+1361 2013-01-11       0.00000    0.6047011 0.6047011    0.0000000
+1362 2013-01-12      14.19572    2.7618584 1.8127848    0.9490736
+1363 2013-01-13      11.40029    3.3897886 2.6972253    0.5109002
+1364 2013-01-14      22.15393    7.1895527 4.2861516    2.7764964
+1365 2013-01-15       0.00000    4.4093183 3.8575365    0.0000000
+     ShallowInterflow      totQ      deltaP        Pe       Se       Ia
+1360        0.0000000 0.0000000 -0.07061261  0.000000 78.33613 3.916807
+1361        0.0000000 0.0000000 -0.06314693  0.000000 78.55485 3.927743
+1362        0.0000000 1.1645074 14.09210066 10.164358 78.75037 3.937519
+1363        0.1816632 0.6268714 11.28406113  7.346543 78.00000 3.900000
+1364        0.1269046 3.4067441 21.99323224 18.093232 78.00000 3.900000
+1365        0.5517819 0.0000000 -0.10049900  0.000000 78.00000 3.900000
+     SoilWater quickflow_combined impervRunoff   excess      Tmax      Tmin
+1360  174.8210          0.0000000      0.00000  0.00000  8.055556 -2.500000
+1361  174.7579          0.0000000      0.00000  0.00000  3.611111 -2.777778
+1362  175.0000          0.9490736     13.84210 13.85005  4.722222  1.944444
+1363  175.0000          0.6925633     11.03406 11.28406  9.722222  3.055556
+1364  175.0000          2.9034011     21.74323 21.99323 14.444444  5.555556
+1365  174.8995          0.5517819      0.00000  0.00000  8.611111 -2.500000
+        Q2 MaxWetClass         ET
+1360 FALSE           0 0.07055463
+1361 FALSE           0 0.06307097
+1362 FALSE           2 0.10361782
+1363 FALSE           2 0.11623003
+1364 FALSE           3 0.16069771
+1365 FALSE           2 0.10047014
+> tail(TodaysMR)[,1:5]
+     dateSeries rain_snowmelt modeled_flow  baseflow OverlandFlow
+1360 2013-01-10       0.00000    0.6718901 0.6718901    0.0000000
+1361 2013-01-11       0.00000    0.6047011 0.6047011    0.0000000
+1362 2013-01-12      14.19572    2.7618584 1.8127848    0.9490736
+1363 2013-01-13      11.40029    3.3897886 2.6972253    0.5109002
+1364 2013-01-14      22.15393    7.1895527 4.2861516    2.7764964
+1365 2013-01-15       0.00000    4.4093183 3.8575365    0.0000000
+> tail(OldMR)[,1:5]
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow
+1344 2013-01-12      14.19572     2.570725 1.496784    1.0739413
+1345 2013-01-13      11.40029     3.081793 2.228232    0.5850759
+1346 2013-01-14      16.22585     5.431384 3.129240    2.1558755
+1347 2013-01-15       0.00000     3.456196 2.917227    0.0000000
+1348 2013-01-16       0.00000     2.722175 2.722175    0.0000000
+1349 2013-01-17       2.28600     2.605137 2.605137    0.0000000
+> tail(TodaysMR)[,c(1,2,3,7,12,15,19,20)]
+     dateSeries rain_snowmelt modeled_flow      totQ SoilWater   excess MaxWetClass         ET
+1360 2013-01-10       0.00000    0.6718901 0.0000000  174.8210  0.00000           0 0.07055463
+1361 2013-01-11       0.00000    0.6047011 0.0000000  174.7579  0.00000           0 0.06307097
+1362 2013-01-12      14.19572    2.7618584 1.1645074  175.0000 13.85005           2 0.10361782
+1363 2013-01-13      11.40029    3.3897886 0.6268714  175.0000 11.28406           2 0.11623003
+1364 2013-01-14      22.15393    7.1895527 3.4067441  175.0000 21.99323           3 0.16069771
+1365 2013-01-15       0.00000    4.4093183 0.0000000  174.8995  0.00000           2 0.10047014
+> tail(OldMR)[,c(1,2,3,7,12,15,19,20)]
+Error in `[.data.frame`(tail(OldMR), , c(1, 2, 3, 7, 12, 15, 19, 20)) : 
+  undefined columns selected
+> tail(OldMR)[,c(1,2,3,7,12,15,19)]
+     dateSeries rain_snowmelt modeled_flow      totQ SoilWater     excess MaxWetClass
+1344 2013-01-12      14.19572     2.570725 1.3424267  175.0000  5.7252691           2
+1345 2013-01-13      11.40029     3.081793 0.7313449  175.0000 10.9695369           2
+1346 2013-01-14      16.22585     5.431384 2.6948444  175.0000 15.7065927           3
+1347 2013-01-15       0.00000     3.456196 0.0000000  174.4958  0.0000000           2
+1348 2013-01-16       0.00000     2.722175 0.0000000  173.9960  0.0000000           0
+1349 2013-01-17       2.28600     2.605137 0.0000000  175.0000  0.7850867           0
+> OldMR[1330:1347,c(1,2,3,7,12,15,19)]
+     dateSeries rain_snowmelt modeled_flow      totQ SoilWater    excess MaxWetClass
+1330 2012-12-29     0.0000000     2.750749 0.0000000  171.6753  0.000000           0
+1331 2012-12-30     0.0000000     2.566749 0.0000000  171.2135  0.000000           0
+1332 2012-12-31     0.0000000     2.397111 0.0000000  170.7565  0.000000           0
+1333 2013-01-01     0.0000000     2.240679 0.0000000  170.3032  0.000000           0
+1334 2013-01-02     0.0000000     2.096400 0.0000000  169.8643  0.000000           0
+1335 2013-01-03     0.0000000     1.963306 0.0000000  169.4316  0.000000           0
+1336 2013-01-04     0.0000000     1.840513 0.0000000  168.9883  0.000000           0
+1337 2013-01-05     0.0000000     1.727201 0.0000000  168.5461  0.000000           0
+1338 2013-01-06     0.9849425     1.622605 0.0000000  169.0913  0.000000           0
+1339 2013-01-07     0.0000000     1.526027 0.0000000  168.6661  0.000000           0
+1340 2013-01-08     0.0000000     1.437605 0.0000000  168.2384  0.000000           0
+1341 2013-01-09     0.0000000     1.355922 0.0000000  167.8124  0.000000           0
+1342 2013-01-10     0.0000000     1.280436 0.0000000  167.3831  0.000000           0
+1343 2013-01-11     0.0000000     1.210652 0.0000000  166.9599  0.000000           0
+1344 2013-01-12    14.1957185     2.570725 1.3424267  175.0000  5.725269           2
+1345 2013-01-13    11.4002912     3.081793 0.7313449  175.0000 10.969537           2
+1346 2013-01-14    16.2258479     5.431384 2.6948444  175.0000 15.706593           3
+1347 2013-01-15     0.0000000     3.456196 0.0000000  174.4958  0.000000           2
+> TodaysMR[1346:1360,c(1,2,3,7,12,15,19,20)]
+     dateSeries rain_snowmelt modeled_flow totQ SoilWater     excess MaxWetClass         ET
+1346 2012-12-27     0.0000000    2.9150624    0  174.7585 0.00000000           0 0.05216804
+1347 2012-12-28     0.0000000    2.6235561    0  174.7585 0.00000000           0 0.00000000
+1348 2012-12-29     0.0000000    2.3612005    0  174.7585 0.00000000           0 0.00000000
+1349 2012-12-30     0.0000000    2.1250805    0  174.7136 0.00000000           0 0.04492127
+1350 2012-12-31     0.0000000    1.9125724    0  174.6690 0.00000000           0 0.04455381
+1351 2013-01-01     0.0000000    1.7213152    0  174.6030 0.00000000           0 0.06602243
+1352 2013-01-02     0.0000000    1.5491837    0  174.5964 0.00000000           0 0.00659272
+1353 2013-01-03     0.0000000    1.3942653    0  174.5357 0.00000000           0 0.06071822
+1354 2013-01-04     0.0000000    1.2548388    0  174.4743 0.00000000           0 0.06139818
+1355 2013-01-05     0.0000000    1.1293549    0  174.3996 0.00000000           0 0.07466356
+1356 2013-01-06     0.7568604    1.0240666    0  175.0000 0.07647248           0 0.08000723
+1357 2013-01-07     0.0000000    0.9216600    0  174.9594 0.00000000           0 0.04056064
+1358 2013-01-08     0.0000000    0.8294940    0  174.9309 0.00000000           0 0.02852417
+1359 2013-01-09     0.0000000    0.7465446    0  174.8916 0.00000000           0 0.03934446
+1360 2013-01-10     0.0000000    0.6718901    0  174.8210 0.00000000           0 0.07055463
+> OldMR[1330:1347,c(1,2,3,7,12,15,19)]
+     dateSeries rain_snowmelt modeled_flow      totQ SoilWater    excess MaxWetClass
+1330 2012-12-29     0.0000000     2.750749 0.0000000  171.6753  0.000000           0
+1331 2012-12-30     0.0000000     2.566749 0.0000000  171.2135  0.000000           0
+1332 2012-12-31     0.0000000     2.397111 0.0000000  170.7565  0.000000           0
+1333 2013-01-01     0.0000000     2.240679 0.0000000  170.3032  0.000000           0
+1334 2013-01-02     0.0000000     2.096400 0.0000000  169.8643  0.000000           0
+1335 2013-01-03     0.0000000     1.963306 0.0000000  169.4316  0.000000           0
+1336 2013-01-04     0.0000000     1.840513 0.0000000  168.9883  0.000000           0
+1337 2013-01-05     0.0000000     1.727201 0.0000000  168.5461  0.000000           0
+1338 2013-01-06     0.9849425     1.622605 0.0000000  169.0913  0.000000           0
+1339 2013-01-07     0.0000000     1.526027 0.0000000  168.6661  0.000000           0
+1340 2013-01-08     0.0000000     1.437605 0.0000000  168.2384  0.000000           0
+1341 2013-01-09     0.0000000     1.355922 0.0000000  167.8124  0.000000           0
+1342 2013-01-10     0.0000000     1.280436 0.0000000  167.3831  0.000000           0
+1343 2013-01-11     0.0000000     1.210652 0.0000000  166.9599  0.000000           0
+1344 2013-01-12    14.1957185     2.570725 1.3424267  175.0000  5.725269           2
+1345 2013-01-13    11.4002912     3.081793 0.7313449  175.0000 10.969537           2
+1346 2013-01-14    16.2258479     5.431384 2.6948444  175.0000 15.706593           3
+1347 2013-01-15     0.0000000     3.456196 0.0000000  174.4958  0.000000           2
+> TodaysMR[1346:1365,c(1,2,3,7,12,15,19,20)]
+     dateSeries rain_snowmelt modeled_flow      totQ SoilWater      excess MaxWetClass         ET
+1346 2012-12-27     0.0000000    2.9150624 0.0000000  174.7585  0.00000000           0 0.05216804
+1347 2012-12-28     0.0000000    2.6235561 0.0000000  174.7585  0.00000000           0 0.00000000
+1348 2012-12-29     0.0000000    2.3612005 0.0000000  174.7585  0.00000000           0 0.00000000
+1349 2012-12-30     0.0000000    2.1250805 0.0000000  174.7136  0.00000000           0 0.04492127
+1350 2012-12-31     0.0000000    1.9125724 0.0000000  174.6690  0.00000000           0 0.04455381
+1351 2013-01-01     0.0000000    1.7213152 0.0000000  174.6030  0.00000000           0 0.06602243
+1352 2013-01-02     0.0000000    1.5491837 0.0000000  174.5964  0.00000000           0 0.00659272
+1353 2013-01-03     0.0000000    1.3942653 0.0000000  174.5357  0.00000000           0 0.06071822
+1354 2013-01-04     0.0000000    1.2548388 0.0000000  174.4743  0.00000000           0 0.06139818
+1355 2013-01-05     0.0000000    1.1293549 0.0000000  174.3996  0.00000000           0 0.07466356
+1356 2013-01-06     0.7568604    1.0240666 0.0000000  175.0000  0.07647248           0 0.08000723
+1357 2013-01-07     0.0000000    0.9216600 0.0000000  174.9594  0.00000000           0 0.04056064
+1358 2013-01-08     0.0000000    0.8294940 0.0000000  174.9309  0.00000000           0 0.02852417
+1359 2013-01-09     0.0000000    0.7465446 0.0000000  174.8916  0.00000000           0 0.03934446
+1360 2013-01-10     0.0000000    0.6718901 0.0000000  174.8210  0.00000000           0 0.07055463
+1361 2013-01-11     0.0000000    0.6047011 0.0000000  174.7579  0.00000000           0 0.06307097
+1362 2013-01-12    14.1957185    2.7618584 1.1645074  175.0000 13.85004579           2 0.10361782
+1363 2013-01-13    11.4002912    3.3897886 0.6268714  175.0000 11.28406113           2 0.11623003
+1364 2013-01-14    22.1539300    7.1895527 3.4067441  175.0000 21.99323224           3 0.16069771
+1365 2013-01-15     0.0000000    4.4093183 0.0000000  174.8995  0.00000000           2 0.10047014
+> tail(TodaysMR)
+     dateSeries rain_snowmelt modeled_flow  baseflow OverlandFlow ShallowInterflow      totQ      deltaP        Pe       Se       Ia SoilWater
+1360 2013-01-10       0.00000    0.6718901 0.6718901    0.0000000        0.0000000 0.0000000 -0.07061261  0.000000 78.33613 3.916807  174.8210
+1361 2013-01-11       0.00000    0.6047011 0.6047011    0.0000000        0.0000000 0.0000000 -0.06314693  0.000000 78.55485 3.927743  174.7579
+1362 2013-01-12      14.19572    2.7618584 1.8127848    0.9490736        0.0000000 1.1645074 14.09210066 10.164358 78.75037 3.937519  175.0000
+1363 2013-01-13      11.40029    3.3897886 2.6972253    0.5109002        0.1816632 0.6268714 11.28406113  7.346543 78.00000 3.900000  175.0000
+1364 2013-01-14      22.15393    7.1895527 4.2861516    2.7764964        0.1269046 3.4067441 21.99323224 18.093232 78.00000 3.900000  175.0000
+1365 2013-01-15       0.00000    4.4093183 3.8575365    0.0000000        0.5517819 0.0000000 -0.10049900  0.000000 78.00000 3.900000  174.8995
+     quickflow_combined impervRunoff   excess      Tmax      Tmin    Q2 MaxWetClass         ET
+1360          0.0000000      0.00000  0.00000  8.055556 -2.500000 FALSE           0 0.07055463
+1361          0.0000000      0.00000  0.00000  3.611111 -2.777778 FALSE           0 0.06307097
+1362          0.9490736     13.84210 13.85005  4.722222  1.944444 FALSE           2 0.10361782
+1363          0.6925633     11.03406 11.28406  9.722222  3.055556 FALSE           2 0.11623003
+1364          2.9034011     21.74323 21.99323 14.444444  5.555556 FALSE           3 0.16069771
+1365          0.5517819      0.00000  0.00000  8.611111 -2.500000 FALSE           2 0.10047014
+> tail(OldMR)
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow      totQ      deltaP        Pe       Se       Ia SoilWater
+1344 2013-01-12      14.19572     2.570725 1.496784    1.0739413        0.0000000 1.3424267 14.16981403 10.551004 73.39729 3.669865  175.0000
+1345 2013-01-13      11.40029     3.081793 2.228232    0.5850759        0.2684853 0.7313449 11.37123366  7.701369 54.00000 2.700000  175.0000
+1346 2013-01-14      16.22585     5.431384 3.129240    2.1558755        0.1462690 2.6948444 16.18567343 13.485673 54.00000 2.700000  175.0000
+1347 2013-01-15       0.00000     3.456196 2.917227    0.0000000        0.5389689 0.0000000 -0.02512475  0.000000 54.00000 2.700000  174.4958
+1348 2013-01-16       0.00000     2.722175 2.722175    0.0000000        0.0000000 0.0000000 -0.02077118  0.000000 55.21643 2.760821  173.9960
+1349 2013-01-17       2.28600     2.605137 2.605137    0.0000000        0.0000000 0.0000000  2.26318541  0.000000 56.42221 2.821110  175.0000
+     quickflow_combined impervRunoff     excess      Tmax      Tmin       Q2 MaxWetClass
+1344          1.0739413    13.919814  5.7252691  4.722222  1.944444 6.517617           2
+1345          0.8535612    11.121234 10.9695369  9.722222  3.055556 3.611078           2
+1346          2.3021445    15.935673 15.7065927 14.444444  5.555556 6.626774           3
+1347          0.5389689     0.000000  0.0000000  8.611111 -2.500000      NaN           2
+1348          0.0000000     0.000000  0.0000000  0.000000 -3.333333      NaN           0
+1349          0.0000000     2.013185  0.7850867  5.555556 -5.555556      NaN           0
+> length(DS)
+[1] 1365
+> OldMR$dateSeries[1320:1349]
+ [1] "2012-12-18" "2012-12-19" "2012-12-20" "2012-12-21" "2012-12-22" "2012-12-23" "2012-12-24" "2012-12-25" "2012-12-26" "2012-12-28" "2012-12-29"
+[12] "2012-12-30" "2012-12-31" "2013-01-01" "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-05" "2013-01-06" "2013-01-07" "2013-01-08" "2013-01-09"
+[23] "2013-01-10" "2013-01-11" "2013-01-12" "2013-01-13" "2013-01-14" "2013-01-15" "2013-01-16" "2013-01-17"
+> OldMR$dateSeries[1300:1320]
+ [1] "2012-11-28" "2012-11-29" "2012-11-30" "2012-12-01" "2012-12-02" "2012-12-03" "2012-12-04" "2012-12-05" "2012-12-06" "2012-12-07" "2012-12-08"
+[12] "2012-12-09" "2012-12-10" "2012-12-11" "2012-12-12" "2012-12-13" "2012-12-14" "2012-12-15" "2012-12-16" "2012-12-17" "2012-12-18"
+> DS[1300:1365]
+ [1] "2012-11-11" "2012-11-12" "2012-11-13" "2012-11-14" "2012-11-15" "2012-11-16" "2012-11-17" "2012-11-18" "2012-11-19" "2012-11-20" "2012-11-21"
+[12] "2012-11-22" "2012-11-23" "2012-11-24" "2012-11-25" "2012-11-26" "2012-11-27" "2012-11-28" "2012-11-29" "2012-11-30" "2012-12-01" "2012-12-02"
+[23] "2012-12-03" "2012-12-04" "2012-12-05" "2012-12-06" "2012-12-07" "2012-12-08" "2012-12-09" "2012-12-10" "2012-12-11" "2012-12-12" "2012-12-13"
+[34] "2012-12-14" "2012-12-15" "2012-12-16" "2012-12-17" "2012-12-18" "2012-12-19" "2012-12-20" "2012-12-21" "2012-12-22" "2012-12-23" "2012-12-24"
+[45] "2012-12-25" "2012-12-26" "2012-12-27" "2012-12-28" "2012-12-29" "2012-12-30" "2012-12-31" "2013-01-01" "2013-01-02" "2013-01-03" "2013-01-04"
+[56] "2013-01-05" "2013-01-06" "2013-01-07" "2013-01-08" "2013-01-09" "2013-01-10" "2013-01-11" "2013-01-12" "2013-01-13" "2013-01-14" "2013-01-15"
+> plot(DS)
+> plot(DS[1000:1365])
+> plot(OldMR[1000:1365])
+Error in `[.data.frame`(OldMR, 1000:1365) : undefined columns selected
+> plot(OldMR$datSeries[1000:1365])
+Error in plot.window(...) : need finite 'xlim' values
+In addition: Warning messages:
+1: In min(x) : no non-missing arguments to min; returning Inf
+2: In max(x) : no non-missing arguments to max; returning -Inf
+3: In min(x) : no non-missing arguments to min; returning Inf
+4: In max(x) : no non-missing arguments to max; returning -Inf
+> plot(OldMR$dateSeries[1000:1365])
+> OldMR$dateSeries[1200:1300]
+  [1] "2012-08-03" "2012-08-04" "2012-08-05" "2012-08-06" "2012-08-07" "2012-08-15" "2012-08-16" "2012-08-17" "2012-08-18" "2012-08-19" "2012-08-20"
+ [12] "2012-08-21" "2012-08-22" "2012-08-23" "2012-08-24" "2012-08-25" "2012-08-26" "2012-08-27" "2012-08-28" "2012-08-29" "2012-08-30" "2012-08-31"
+ [23] "2012-09-01" "2012-09-02" "2012-09-03" "2012-09-04" "2012-09-05" "2012-09-06" "2012-09-07" "2012-09-08" "2012-09-09" "2012-09-10" "2012-09-11"
+ [34] "2012-09-12" "2012-09-13" "2012-09-14" "2012-09-15" "2012-09-16" "2012-09-17" "2012-09-18" "2012-09-19" "2012-09-20" "2012-09-21" "2012-09-22"
+ [45] "2012-09-23" "2012-09-24" "2012-09-25" "2012-09-26" "2012-09-27" "2012-09-28" "2012-09-29" "2012-09-30" "2012-10-01" "2012-10-02" "2012-10-03"
+ [56] "2012-10-04" "2012-10-05" "2012-10-06" "2012-10-07" "2012-10-08" "2012-10-09" "2012-10-10" "2012-10-19" "2012-10-20" "2012-10-21" "2012-10-22"
+ [67] "2012-10-23" "2012-10-24" "2012-10-25" "2012-10-26" "2012-10-28" "2012-10-29" "2012-10-30" "2012-10-31" "2012-11-01" "2012-11-02" "2012-11-03"
+ [78] "2012-11-04" "2012-11-05" "2012-11-06" "2012-11-07" "2012-11-08" "2012-11-09" "2012-11-11" "2012-11-12" "2012-11-13" "2012-11-14" "2012-11-15"
+ [89] "2012-11-16" "2012-11-17" "2012-11-18" "2012-11-19" "2012-11-20" "2012-11-21" "2012-11-22" "2012-11-23" "2012-11-24" "2012-11-25" "2012-11-26"
+[100] "2012-11-27" "2012-11-28"
+> TodaysMR[which(TodaysMR$dateSeries=="2012-12-27"),]
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow totQ      deltaP Pe       Se       Ia SoilWater quickflow_combined
+1346 2012-12-27             0     2.915062 2.915062            0                0    0 -0.05223234  0 78.58696 3.929348  174.7585                  0
+     impervRunoff excess Tmax Tmin    Q2 MaxWetClass         ET
+1346            0      0   -2 -6.4 FALSE           0 0.05216804
+> TodaysMR[which(TodaysMR$dateSeries=="2012-12-27")-1,]
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow totQ       deltaP Pe      Se      Ia SoilWater quickflow_combined
+1345 2012-12-26             0     3.238958 3.238958            0                0    0 -0.009223163  0 78.5584 3.92792  174.8107                  0
+     impervRunoff excess      Tmax      Tmin    Q2 MaxWetClass          ET
+1345            0      0 -1.666667 -11.11111 FALSE           0 0.009213426
+> TodaysMR[which(TodaysMR$dateSeries=="2012-12-27")-2,]
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow totQ      deltaP Pe       Se       Ia SoilWater quickflow_combined
+1344 2012-12-25             0     3.601334 3.598842            0      0.002491882    0 -0.05969449  0 78.37351 3.918675  174.8199        0.002491882
+     impervRunoff excess     Tmax      Tmin    Q2 MaxWetClass         ET
+1344            0      0 1.666667 -3.055556 FALSE           1 0.05964322
+> TodaysMR[which(TodaysMR$dateSeries=="2012-12-27")+2,]
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow totQ deltaP Pe       Se       Ia SoilWater quickflow_combined
+1348 2012-12-29             0     2.361201 2.361201            0                0    0      0  0 78.74868 3.937434  174.7585                  0
+     impervRunoff excess      Tmax      Tmin    Q2 MaxWetClass ET
+1348            0      0 -2.777778 -4.444444 FALSE           0  0
+> TodaysMR[which(TodaysMR$dateSeries=="2012-12-27")+1,]
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow totQ deltaP Pe       Se       Ia SoilWater quickflow_combined
+1347 2012-12-28             0     2.623556 2.623556            0                0    0      0  0 78.74868 3.937434  174.7585                  0
+     impervRunoff excess      Tmax      Tmin    Q2 MaxWetClass ET
+1347            0      0 -3.888889 -5.555556 FALSE           0  0
+> Pmm[1346]
+[1] 5.7
+> tail(rsm)
+[1]  0.00000  0.00000 14.19572 11.40029 22.15393  0.00000
+> tail(SM)
+           Date    MaxT_C    MinT_C Precip_mm   Rain_mm SnowfallWatEq_mm SnowMelt_mm NewSnow_m SnowDepth_m SnowWaterEq_mm
+1360 2013-01-10  8.055556 -2.500000 0.0000000 0.0000000                0     0.00000         0  0.14719062       43.68661
+1361 2013-01-11  3.611111 -2.777778 0.0000000 0.0000000                0     0.00000         0  0.14270606       43.68661
+1362 2013-01-12  4.722222  1.944444 3.6400000 3.6400000                0    10.55572         0  0.10236690       33.13089
+1363 2013-01-13  9.722222  3.055556 0.0000000 0.0000000                0    11.40029         0  0.06409567       21.73060
+1364 2013-01-14 14.444444  5.555556 0.4233333 0.4233333                0    21.73060         0  0.00000000        0.00000
+1365 2013-01-15  8.611111 -2.500000 0.0000000 0.0000000                0     0.00000         0  0.00000000        0.00000
+> plot(SM$Date,SM$SnowDepth_m)
+> plot(SM$Date[1346:1365],SM$SnowDepth_m[1346:1365])
+Error in unclass(x) * 86400 : non-numeric argument to binary operator
+> SM$Date[1346:1365]
+ [1] "2012-12-27" "2012-12-28" "2012-12-29" "2012-12-30" "2012-12-31" "2013-01-01" "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-05" "2013-01-06"
+[12] "2013-01-07" "2013-01-08" "2013-01-09" "2013-01-10" "2013-01-11" "2013-01-12" "2013-01-13" "2013-01-14" "2013-01-15"
+> plot(SM$SnowDepth_m[1346:1365])
+> 
+
+
+
+
+THIS WAS WHAT WAS MADE USING PREVIOUS OUTPUT AS INPUT INTO THE MODEL:
+5 2013-03-16       1.30175     1.454697 1.454078            0     0.0006190086    0  0.8147613  0 81.01741 4.050870  261.1414
+6 2013-03-17       0.00000     1.308825 1.308670            0     0.0001547521    0 -0.4250364  0 78.49165 3.924582  260.7170
+7 2013-03-18       0.00000     1.177803 1.177803            0     0.0000000000    0 -0.5064928  0 79.80739 3.990370  260.2121
+8 2013-03-19       0.00000     1.060023 1.060023            0     0.0000000000    0 -0.6743109  0 81.37250 4.068625  259.5415
+  quickflow_combined impervRunoff excess       Tmax      Tmin    Q2 MaxWetClass        ET
+5       0.0006190086    0.5647613      0  2.2222222 -5.000000 FALSE           1 0.4869887
+6       0.0001547521    0.0000000      0 -1.1111111 -8.333333 FALSE           1 0.4244331
+7       0.0000000000    0.0000000      0 -0.5555556 -9.166667 FALSE           0 0.5048732
+8       0.0000000000    0.0000000      0  4.1666667 -9.722222 FALSE           0 0.6706378
+
+THIS ONE WAS RUN USING ALL DATA.
+> tail(PrevRun)
+     dateSeries rain_snowmelt modeled_flow baseflow OverlandFlow ShallowInterflow totQ     deltaP Pe       Se       Ia SoilWater
+1404 2013-03-14       0.00000     1.800980 1.779284            0     0.0216958098    0 -0.6631203  0 78.00000 3.900000  260.6377
+1405 2013-03-15       0.00000     1.604832 1.601355            0     0.0034768926    0 -0.5607785  0 80.05307 4.002653  260.0790
+1406 2013-03-16       1.30175     1.441776 1.441220            0     0.0005563028    0  0.6299566  0 81.78521 4.089261  260.7089
+1407 2013-03-17       0.00000     1.297237 1.297098            0     0.0001390757    0 -0.5876793  0 79.83235 3.991617  260.1232
+1408 2013-03-18       0.00000     1.167388 1.167388            0     0.0000000000    0 -0.6023313  0 81.64799 4.082400  259.5243
+1409 2013-03-19       0.00000     1.050649 1.050649            0     0.0000000000    0 -0.6771548  0 83.50467 4.175233  258.8526
+     quickflow_combined impervRunoff excess       Tmax      Tmin    Q2 MaxWetClass        ET
+1404       0.0216958098    0.0000000      0  5.0000000 -7.222222 FALSE           1 0.6622796
+1405       0.0034768926    0.0000000      0 -0.2777778 -5.833333 FALSE           1 0.5587574
+1406       0.0005563028    0.3799566      0  2.2222222 -5.000000 FALSE           1 0.6717934
+1407       0.0001390757    0.0000000      0 -1.1111111 -8.333333 FALSE           1 0.5856910
+1408       0.0000000000    0.0000000      0 -0.5555556 -9.166667 FALSE           0 0.5989281
+1409       0.0000000000    0.0000000      0  4.1666667 -9.722222 FALSE           0 0.6716824

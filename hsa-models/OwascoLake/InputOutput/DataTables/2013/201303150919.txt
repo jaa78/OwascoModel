@@ -1,0 +1,819 @@
+Co-op Data 
+[1] "0922 AM EDT Thu Mar 14 2013"
+    A     B    CODE       DATE               C PREC_in
+12  . AR    BWTN6   20130314   DH12/PPDRZZZ       0.26
+15  . AR  N YCT11   20130314   DH12/PPDRMZZ       0.22
+16  . AR  N YOD02   20130314   DH12/PPDRMZZ       0.22
+17  . AR    PLMN6   20130314   DH12/PPDRZZZ       0.22
+20  . AR  N YOG12   20130314   DH12/PPDRMZZ       0.18
+21  . AR    WRSN6   20130314   DH12/PPDRZZZ       0.18
+22  . AR    FULN6   20130314   DH12/PPDRZZZ       0.16
+23  . AR    JSTN6   20130314   DH12/PPDRZZZ       0.16
+24  . AR  N YNG02   20130314   DH12/PPDRMZZ       0.16
+25  . AR    BOON6   20130314   DH12/PPDRZZZ       0.15
+26  . AR    CODN6   20130314   DH12/PPDRZZZ       0.15
+27  . AR  N YOS03   20130314   DH12/PPDRMZZ       0.14
+29  . AR  N YLW02   20130314   DH12/PPDRMZZ       0.13
+30  . AR    FRKN6   20130314   DH12/PPDRZZZ       0.12
+31  . AR      FZY   20130314   DH12/PPDRZZZ       0.12
+32  . AR    LOWN6   20130314   DH12/PPDRZZZ       0.11
+33  . AR  N YOS15   20130314   DH12/PPDRMZZ       0.11
+34  . AR    IAGN6   20130314   DH12/PPDRZZZ       0.10
+35  . AR    OLNN6   20130314   DH12/PPDRZZZ       0.10
+36  . AR    RUHN6   20130314   DH12/PPDRZZZ       0.10
+38  . AR      IAG   20130314   DH12/PPDRZZZ       0.08
+43  . AR    DDMN6   20130314   DH12/PPDRZZZ       0.07
+45  . AR  N YCM13   20130314   DH12/PPDRMZZ       0.07
+46  . AR  N YMR23   20130314   DH12/PPDRMZZ       0.07
+47  . AR  N YOD21   20130314   DH12/PPDRMZZ       0.07
+48  . AR    TOPN6   20130314   DH12/PPDRZZZ       0.07
+49  . AR    WSTN6   20130314   DH12/PPDRZZZ       0.07
+52  . AR  N YOD01   20130314   DH12/PPDRMZZ       0.06
+53  . AR  N YSV06   20130314   DH12/PPDRMZZ       0.06
+54  . AR    WELN6   20130314   DH12/PPDRZZZ       0.06
+55  . AR    WLSN6   20130314   DH12/PPDRZZZ       0.06
+60  . AR  N YAL02   20130314   DH12/PPDRMZZ       0.05
+61  . AR  N YCM03   20130314   DH12/PPDRMZZ       0.05
+62  . AR  N YCR05   20130314   DH12/PPDRMZZ       0.05
+63  . AR  N YER53   20130314   DH12/PPDRMZZ       0.05
+64  . AR  N YER59   20130314   DH12/PPDRMZZ       0.05
+65  . AR  N YOD14   20130314   DH12/PPDRMZZ       0.05
+66  . AR    PEKN6   20130314   DH12/PPDRZZZ       0.05
+68  . AR      ART   20130314   DH12/PPDRZZZ       0.04
+69  . AR    BALN6   20130314   DH12/PPDRZZZ       0.04
+71  . AR    EMRN6   20130314   DH12/PPDRZZZ       0.04
+72  . AR    INDN6   20130314   DH12/PPDRZZZ       0.04
+74  . AR  N YCM10   20130314   DH12/PPDRMZZ       0.04
+75  . AR  N YCN09   20130314   DH12/PPDRMZZ       0.04
+76  . AR  N YER07   20130314   DH12/PPDRMZZ       0.04
+77  . AR  N YMD10   20130314   DH12/PPDRMZZ       0.04
+78  . AR  N YTM10   20130314   DH12/PPDRMZZ       0.04
+79  . AR    SHBN6   20130314   DH12/PPDRZZZ       0.04
+80  . AR      SYR   20130314   DH12/PPDRZZZ       0.04
+81  . AR    UDLN6   20130314   DH12/PPDRZZZ       0.04
+83  . AR    YGTN6   20130314   DH12/PPDRZZZ       0.04
+85  . AR    AVON6   20130314   DH12/PPDRZZZ       0.03
+86  . AR    CVLN6   20130314   DH12/PPDRGZZ       0.03
+87  . AR      ELZ   20130314   DH12/PPDRZZZ       0.03
+88  . AR    HRLN6   20130314   DH12/PPDRZZZ       0.03
+89  . AR    MALN6   20130314   DH12/PPDRZZZ       0.03
+92  . AR  N YBM11   20130314   DH12/PPDRMZZ       0.03
+93  . AR  N YBM21   20130314   DH12/PPDRMZZ       0.03
+94  . AR  N YER39   20130314   DH12/PPDRMZZ       0.03
+95  . AR  N YER50   20130314   DH12/PPDRMZZ       0.03
+96  . AR  N YHR06   20130314   DH12/PPDRMZZ       0.03
+97  . AR  N YJF07   20130314   DH12/PPDRMZZ       0.03
+98  . AR  N YMR12   20130314   DH12/PPDRMZZ       0.03
+99  . AR  N YST03   20130314   DH12/PPDRMZZ       0.03
+100 . AR  N YSV05   20130314   DH12/PPDRMZZ       0.03
+101 . AR  N YTG03   20130314   DH12/PPDRMZZ       0.03
+102 . AR  N YTM05   20130314   DH12/PPDRMZZ       0.03
+103 . AR  N YTM18   20130314   DH12/PPDRMZZ       0.03
+104 . AR    PHON6   20130314   DH12/PPDRZZZ       0.03
+108 . AR    WALN6   20130314   DH12/PPDRZZZ       0.03
+109 . AR    WITN6   20130314   DH12/PPDRZZZ       0.03
+110 . AR    ADRN6   20130314   DH12/PPDRGZZ       0.02
+112 . AR      BGM   20130314   DH12/PPDRZZZ       0.02
+114 . AR    CHON6   20130314   DH12/PPDRGZZ       0.02
+115 . AR    CINN6   20130314   DH12/PPDRGZZ       0.02
+122 . AR    LLFN6   20130314   DH12/PPDRGZZ       0.02
+123 . AR    MAYN6   20130314   DH12/PPDRZZZ       0.02
+124 . AR    MECN6   20130314   DH12/PPDRZZZ       0.02
+125 . AR    MMRN6   20130314   DH12/PPDRZZZ       0.02
+128 . AR  N YOD23   20130314   DH12/PPDRMZZ       0.02
+129 . AR  N YOG10   20130314   DH12/PPDRMZZ       0.02
+131 . AR  N YSY01   20130314   DH12/PPDRMZZ       0.02
+132 . AR    ONON6   20130314   DH12/PPDRZZZ       0.02
+134 . AR      RME   20130314   DH12/PPDRZZZ       0.02
+135 . AR      SLK   20130314   DH12/PPDRZZZ       0.02
+138 . AR    SUVN6   20130314   DH12/PPDRZZZ       0.02
+142 . AR    WHTN6   20130314   DH12/PPDRZZZ       0.02
+149 . AR      BUF   20130314   DH12/PPDRZZZ       0.01
+150 . AR    CDGN6   20130314   DH12/PPDRZZZ       0.01
+152 . AR    CRTN6   20130314   DH12/PPDRGZZ       0.01
+156 . AR    GNEN6   20130314   DH12/PPDRZZZ       0.01
+159 . AR    HONN6   20130314   DH12/PPDRZZZ       0.01
+160 . AR    JOAN6   20130314   DH12/PPDRGZZ       0.01
+163 . AR    LLZN6   20130314   DH12/PPDRZZZ       0.01
+166 . AR      MGJ   20130314   DH12/PPDRZZZ       0.01
+167 . AR    MRSN6   20130314   DH12/PPDRGZZ       0.01
+168 . AR      MSS   20130314   DH12/PPDRZZZ       0.01
+172 . AR  N YCM08   20130314   DH12/PPDRMZZ       0.01
+173 . AR  N YMD11   20130314   DH12/PPDRMZZ       0.01
+174 . AR  N YOD11   20130314   DH12/PPDRMZZ       0.01
+175 . AR  N YOD19   20130314   DH12/PPDRMZZ       0.01
+176 . AR  N YOG04   20130314   DH12/PPDRMZZ       0.01
+177 . AR  N YOT11   20130314   DH12/PPDRMZZ       0.01
+178 . AR  N YSR07   20130314   DH12/PPDRMZZ       0.01
+179 . AR  N YTM02   20130314   DH12/PPDRMZZ       0.01
+180 . AR  N YTM24   20130314   DH12/PPDRMZZ       0.01
+181 . AR    OGON6   20130314   DH12/PPDRZZZ       0.01
+182 . AR    ONNN6   20130314   DH12/PPDRGZZ       0.01
+189 . AR    THRN6   20130314   DH12/PPDRGZZ       0.01
+196 . AR    WVYN6   20130314   DH12/PPDRGZZ       0.01
+201 . AR    ACVN6   20130314   DH12/PPDRZZZ       0.00
+204 . AR      ALB   20130314   DH12/PPDRZZZ       0.00
+212 . AR    AUBN6   20130314   DH12/PPDRZZZ       0.00
+214 . AR    AURN6   20130314   DH12/PPDRZZZ       0.00
+215 . AR    AVNN6   20130314   DH12/PPDRGZZ       0.00
+217 . AR    BAHN6   20130314   DH12/PPDRGZZ       0.00
+219 . AR    BDGN6   20130314   DH12/PPDR2ZZ       0.00
+220 . AR    BDGN6   20130314   DH12/PPDRZZZ       0.00
+236 . AR    BRUN6   20130314   DH12/PPDRZZZ       0.00
+238 . AR    BSKN6   20130314   DH12/PPDRZZZ       0.00
+239 . AR    BTGN6   20130314   DH12/PPDRZZZ       0.00
+242 . AR    BTHN6   20130314   DH12/PPDRZZZ       0.00
+245 . AR    CARN6   20130314   DH12/PPDRZZZ       0.00
+246 . AR    CAYN6   20130314   DH12/PPDRZZZ       0.00
+253 . AR    CHLV1   20130314   DH12/PPDRZZZ       0.00
+255 . AR    CLNN6   20130314   DH12/PPDRPZZ       0.00
+256 . AR    CMGN6   20130314   DH12/PPDRZZZ       0.00
+257 . AR    COBN6   20130314   DH12/PPDRZZZ       0.00
+259 . AR    CORN6   20130314   DH12/PPDRZZZ       0.00
+263 . AR    CRNN6   20130314   DH12/PPDRGZZ       0.00
+267 . AR    CTPN6   20130314   DH12/PPDRZZZ       0.00
+273 . AR    DLSN6   20130314   DH12/PPDRZZZ       0.00
+275 . AR      DSV   20130314   DH12/PPDRZZZ       0.00
+276 . AR    DUAN6   20130314   DH12/PPDRGZZ       0.00
+281 . AR      ELM   20130314   DH12/PPDRZZZ       0.00
+286 . AR    ESDN6   20130314   DH12/PPDRZZZ       0.00
+296 . AR      FRG   20130314   DH12/PPDRZZZ       0.00
+300 . AR    GENN6   20130314   DH12/PPDRZZZ       0.00
+301 . AR      GFL   20130314   DH12/PPDRZZZ       0.00
+304 . AR    GNVN6   20130314   DH12/PPDRZZZ       0.00
+306 . AR    GPTN6   20130314   DH12/PPDRGZZ       0.00
+318 . AR      HPN   20130314   DH12/PPDRZZZ       0.00
+328 . AR      ISP   20130314   DH12/PPDRZZZ       0.00
+330 . AR      JFK   20130314   DH12/PPDRZZZ       0.00
+338 . AR      LGA   20130314   DH12/PPDRZZZ       0.00
+340 . AR    LLKN6   20130314   DH12/PPDRZZZ       0.00
+384 . AR    NBLN6   20130314   DH12/PPDRZZZ       0.00
+385 . AR    NCKN6   20130314   DH12/PPDRZZZ       0.00
+415 . AR    NSKN6   20130314   DH12/PPDRZZZ       0.00
+420 . AR  N YAB06   20130314   DH12/PPDRMZZ       0.00
+421 . AR      NYC   20130314   DH12/PPDRZZZ       0.00
+422 . AR  N YCL07   20130314   DH12/PPDRMZZ       0.00
+423 . AR  N YMG01   20130314   DH12/PPDRMZZ       0.00
+424 . AR  N YNS07   20130314   DH12/PPDRMZZ       0.00
+425 . AR  N YPT02   20130314   DH12/PPDRMZZ       0.00
+426 . AR  N YPT04   20130314   DH12/PPDRMZZ       0.00
+427 . AR  N YRN01   20130314   DH12/PPDRMZZ       0.00
+428 . AR  N YSR06   20130314   DH12/PPDRMZZ       0.00
+429 . AR  N YUL04   20130314   DH12/PPDRMZZ       0.00
+430 . AR    OLDN6   20130314   DH12/PPDRPZZ       0.00
+438 . AR      PBG   20130314   DH12/PPDRZZZ       0.00
+439 . AR      PEO   20130314   DH12/PPDRZZZ       0.00
+441 . AR    PJRN6   20130314   DH12/PPDRZZZ       0.00
+442 . AR    PLAN6   20130314   DH12/PPDRGZZ       0.00
+444 . AR      POU   20130314   DH12/PPDRZZZ       0.00
+458 . AR      ROC   20130314   DH12/PPDRZZZ       0.00
+465 . AR    SHHN6   20130314   DH12/PPDRZZZ       0.00
+477 . AR    TNRN6   20130314   DH12/PPDRPZZ       0.00
+480 . AR    TRBN6   20130314   DH12/PPDRZZZ       0.00
+501 . AR    WLON6   20130314   DH12/PPDRZZZ       0.00
+512 . AR    YHTN6   20130314   DH12/PPDRZZZ       0.00
+                              LOC
+12                : Brewerton, NY
+15           : Allegany 4.7 N, NY
+16        : Point Rock 0.6 SE, NY
+17                  : Palermo, NY
+20           : Phoenix 2.9 SE, NY
+21                   : Warsaw, NY
+22                   : Fulton, NY
+23                : Jamestown, NY
+24  : North Tonawanda 1.0 NNE, NY
+25                : Boonville, NY
+26                   : Colden, NY
+27           : Oswego 5.0 ESE, NY
+29      : Harrisville 4.7 SSW, NY
+30            : Franklinville, NY
+31                   : Fulton, NY
+32                 : Lowville, NY
+33           : Minetto 0.1 SE, NY
+34            : Niagara Falls, NY
+35                    : Olean, NY
+36                 : Rushford, NY
+38            : Niagara Falls, NY
+43                : Delta Dam, NY
+45           : Elmira 0.7 WNW, NY
+46        : Rochester 5.0 WNW, NY
+47             : Rome 4.8 SSE, NY
+48              : Tupper Lake, NY
+49             : Westmoreland, NY
+52          : Boonville 8.0 E, NY
+53          : Hancock 10.5 SE, NY
+54               : Wellsville, NY
+55                    : Wales, NY
+60       : West Almond 5.0 SW, NY
+61           : Elmira 1.3 ESE, NY
+62          : Marathon 1.0 NW, NY
+63        : West Seneca 1.9 W, NY
+64          : Kenmore 0.3 ESE, NY
+65        : Whitesboro 3.9 NE, NY
+66             : Gloversville, NY
+68                : Watertown, NY
+69            : Baldwinsville, NY
+71                   : Elmira, NY
+72              : Indian Lake, NY
+74        : Van Etten 0.3 ENE, NY
+75            : Norwich 5.4 W, NY
+76      : Williamsville 2.7 E, NY
+77         : Cazenovia 2.9 SE, NY
+78          : Freeville 2.6 N, NY
+79                : Sherburne, NY
+80                 : Syracuse, NY
+81                 : Unadilla, NY
+83               : Youngstown, NY
+85                     : Avon, NY
+86           : Charlotteville, NY
+87               : Wellsville, NY
+88                  : Hornell, NY
+89                   : Malone, NY
+92        : Binghamton 1.8 SW, NY
+93           : Windsor 8.0 SE, NY
+94          : Hamburg 0.4 WSW, NY
+95      : East Aurora 0.1 ENE, NY
+96      : Little Falls 7.5 NW, NY
+97            : Theresa 2.8 S, NY
+98       : North Chili 0.6 NW, NY
+99      : South Corning 4.7 S, NY
+100         : Woodridge 5.5 S, NY
+101       : Apalachin 3.0 ESE, NY
+102        : Freeville 1.5 NE, NY
+103       : East Ithaca 4.7 E, NY
+104               : Phoenicia, NY
+108                  : Walton, NY
+109           : Whitney Point, NY
+110                  : Adrian, NY
+112              : Binghamton, NY
+114                  : Oxford, NY
+115             : Cincinnatus, NY
+122            : Little Falls, NY
+123            : Seneca Falls, NY
+124             : Mecklenburg, NY
+125            : Mount Morris, NY
+128     : Durhamville 3.5 NNW, NY
+129         : Camillus 1.1 SE, NY
+131     : Smith Valley 1.9 SE, NY
+132                 : Oneonta, NY
+134                    : Rome, NY
+135            : Saranac Lake, NY
+138                : Syracuse, NY
+142             : Whitesville, NY
+149                 : Buffalo, NY
+150              : Canadaigua, NY
+152                : Cortland, NY
+156                  : Greene, NY
+159                 : Honeoye, NY
+160               : Johnstown, NY
+163            : Lake Luzerne, NY
+166              : Montgomery, NY
+167                  : Morris, NY
+168            : Massena ASOS, NY
+172      : Horseheads 1.5 SSE, NY
+173       : Earlville 1.6 NNW, NY
+174          : Vernon 0.4 NNW, NY
+175      : New Hartford 0.8 S, NY
+176           : Tully 1.7 WSW, NY
+177                : Hartwick, NY
+178    : Ballston Spa 4.7 WNW, NY
+179          : Lansing 6.6 NW, NY
+180     : Trumansburg 0.4 WNW, NY
+181                   : Owego, NY
+182                 : Oneonta, NY
+189                : Thurston, NY
+196                 : Waverly, NY
+201              : Alcove Dam, NY
+204                  : Albany, NY
+212                  : Auburn, NY
+214    : Aurora Research Farm, NY
+215                    : Avon, NY
+217                    : Bath, NY
+219           : Bridgehampton, NY
+220           : Bridgehampton, NY
+236               : Brunswick, NY
+238                 : Buskirk, NY
+239          : Baiting Hollow, NY
+242                    : Bath, NY
+245                  : Carmel, NY
+246                  : Cayuga, NY
+253                 : Chelsea, NY
+255         : Clinton Corners, NY
+256                 : Chemung, NY
+257              : Cobleskill, NY
+259                 : Corning, NY
+263                 : Corning, NY
+267              : Centerport, NY
+273                : Delanson, NY
+275               : Dansville, NY
+276              : Duanesburg, NY
+281                  : Elmira, NY
+286             : East Sidney, NY
+296             : Farmingdale, NY
+300                  : Geneva, NY
+301             : Glens Falls, NY
+304                  : Geneva, NY
+306               : Greenport, NY
+318            : White Plains, NY
+328                   : Islip, NY
+330             : JFK Airport, NY
+338      : La Guardia Airport, NY
+340               : Long Lake, NY
+384          : North Blenheim, NY
+385             : North Creek, NY
+415               : Niskayuna, NY
+420     : Schenectady 5.6 SSW, NY
+421           : New York City, NY
+422            : Peru 4.1 ESE, NY
+423       : Fort Plain 0.2 SE, NY
+424       : Floral Park 0.4 W, NY
+425          : Beacon 4.2 ESE, NY
+426     : Cold Springs 8.1 NE, NY
+427    : Averill Park 0.9 WNW, NY
+428      : Gansevoort 1.3 WNW, NY
+429             : Ruby 0.5 NE, NY
+430               : Old Forge, NY
+438             : Plattsburgh, NY
+439                : Penn Yan, NY
+441             : Port Jervis, NY
+442       : Plainfield Center, NY
+444            : Poughkeepsie, NY
+458               : Rochester, NY
+465               : Schoharie, NY
+477            : Tannersville, NY
+480             : Tribes Hill, NY
+501                : Waterloo, NY
+512        : Yorktown Heights, NY
+KITH   day  time   wind_mph vis_mi                       weath                  Sky
+1   15 08:56        S 7  10.00               Mostly Cloudy        SCT044 BKN075
+2   15 07:56        S 6  10.00               Mostly Cloudy               BKN046
+3   15 06:56        S 5  10.00               Mostly Cloudy               BKN090
+4   15 05:56       Calm  10.00               Mostly Cloudy               BKN090
+5   15 04:56       SW 3  10.00                        Fair                  CLR
+6   15 03:56       NW 9  10.00                        Fair                  CLR
+7   15 02:56      NW 12  10.00                        Fair                  CLR
+8   15 01:56 NW 18 G 23  10.00               Partly Cloudy               SCT030
+9   15 00:56 NW 17 G 25  10.00                A Few Clouds               FEW033
+10  14 23:56 NW 18 G 28  10.00                        Fair                  CLR
+11  14 22:56 NW 20 G 25  10.00                        Fair                  CLR
+12  14 21:56 NW 20 G 23  10.00                        Fair                  CLR
+13  14 20:56 NW 16 G 24  10.00                        Fair                  CLR
+14  14 19:56 NW 20 G 25  10.00                        Fair                  CLR
+15  14 18:56 NW 24 G 43  10.00     A Few Clouds and Breezy               FEW080
+16  14 17:56 NW 25 G 37  10.00             Fair and Breezy                  CLR
+17  14 16:56 NW 25 G 37  10.00     A Few Clouds and Breezy               FEW080
+18  14 15:56 NW 33 G 41  10.00     Partly Cloudy and Windy               SCT080
+19  14 14:56 NW 30 G 36  10.00     Partly Cloudy and Windy               SCT080
+20  14 13:56 NW 29 G 38  10.00     Partly Cloudy and Windy               SCT050
+21  14 12:56 NW 22 G 32  10.00    Mostly Cloudy and Breezy               BKN040
+22  14 11:56 NW 16 G 25   2.00                  Light Snow        BKN023 OVC030
+23  14 10:56 NW 17 G 26   4.00                  Light Snow        BKN017 OVC028
+24  14 09:56 NW 15 G 26   2.00                  Light Snow        BKN015 OVC028
+25  14 08:56 NW 23 G 30   4.00       Light Snow and Breezy        BKN015 OVC025
+26  14 07:56 NW 18 G 30   5.00          Light Showers Snow        BKN018 OVC028
+27  14 06:56 NW 20 G 33   7.00         Showers in Vicinity        BKN024 OVC050
+28  14 05:56 NW 23 G 33  10.00       Light Snow and Breezy BKN030 BKN035 OVC043
+29  14 04:56 NW 30 G 37  10.00        Light Snow and Windy        BKN032 OVC042
+30  14 03:56  W 20 G 31   6.00                  Light Snow FEW025 BKN037 OVC046
+31  14 02:56 NW 18 G 29  10.00                  Light Snow FEW011 SCT016 OVC040
+32  14 01:56       W 15   8.00                  Light Snow SCT012 BKN017 OVC050
+33  14 00:56       W 10  10.00                    Overcast FEW032 BKN060 OVC085
+34  13 23:56      NW 15  10.00                  Light Snow BKN027 BKN045 OVC070
+35  13 22:56        W 8   3.00         Light Snow Fog/Mist SCT013 BKN019 OVC055
+36  13 21:56       W 17  10.00                    Overcast SCT048 BKN080 OVC090
+37  13 20:56       W 13  10.00                    Overcast               OVC060
+38  13 19:56  W 23 G 26  10.00         Overcast and Breezy        BKN040 OVC048
+39  13 18:56      NW 12  10.00               Mostly Cloudy               BKN060
+40  13 17:56 NW 15 G 23  10.00                    Overcast        BKN045 OVC055
+41  13 16:56       NW 6  10.00          Light Showers Snow        SCT005 BKN050
+42  13 14:56       W 13  10.00          Light Showers Snow SCT021 BKN029 OVC042
+43  13 13:56       SW 5  10.00          Light Showers Snow        BKN031 BKN050
+44  13 12:56        W 3  10.00          Light Showers Snow        SCT037 BKN055
+45  13 11:56        W 7  10.00               Mostly Cloudy        FEW040 BKN060
+46  13 10:56       W 12  10.00               Mostly Cloudy        SCT035 BKN070
+47  13 09:56        W 8  10.00               Partly Cloudy               SCT035
+48  13 08:56        W 3  10.00                A Few Clouds               FEW030
+49  13 07:56        W 7  10.00               Partly Cloudy               SCT020
+50  13 06:56        W 5  10.00               Mostly Cloudy        SCT023 BKN037
+51  13 05:56       Calm  10.00                    Overcast FEW021 BKN025 OVC043
+52  13 04:56        W 6  10.00                    Overcast        BKN025 OVC041
+53  13 03:56       NW 9  10.00                    Overcast FEW020 SCT033 OVC041
+54  13 02:56       NW 7  10.00                    Overcast               OVC046
+55  13 01:56        W 8  10.00                    Overcast        SCT031 OVC046
+56  13 00:56        W 5  10.00                    Overcast               OVC044
+57  12 23:56        W 7  10.00                    Overcast               OVC040
+58  12 22:56       NW 8  10.00                    Overcast               OVC040
+59  12 21:56       NW 9  10.00                    Overcast        SCT024 OVC038
+60  12 20:56       NW 9  10.00                    Overcast        BKN024 OVC042
+61  12 19:56      NW 12  10.00                    Overcast FEW016 BKN034 OVC060
+62  12 18:56        N 9  10.00                    Overcast        SCT021 OVC041
+63  12 17:56       NW 8  10.00                    Overcast        SCT016 OVC025
+64  12 16:56        N 6  10.00                    Overcast        BKN017 OVC028
+65  12 15:56        N 5  10.00                    Overcast        BKN008 OVC020
+66  12 14:56        N 6   6.00 Light Showers Rain Fog/Mist        BKN006 OVC015
+   AirTempF DewPt_F Temp6hrMax Temp6hrMin  RH WindChill_F HeatIndex_F
+1        27      16                       63%          19          NA
+2        24      15         24         17 68%          17          NA
+3        21      12                       68%          14          NA
+4        17      12                       80%          NA          NA
+5        20      12                       71%          NA          NA
+6        23      12                       63%          13          NA
+7        23      12                       63%          11          NA
+8        24      13         27         24 63%          10          NA
+9        24      13                       63%          11          NA
+10       25      12                       57%          11          NA
+11       25      11                       55%          11          NA
+12       25      10                       53%          11          NA
+13       26      10                       51%          14          NA
+14       27       6         32         27 41%          13          NA
+15       28       5                       37%          14          NA
+16       29       6                       37%          15          NA
+17       31       5                       33%          17          NA
+18       32       6                       33%          17          NA
+19       32       8                       36%          18          NA
+20       31       9         31         18 40%          16          NA
+21       28      14                       56%          14          NA
+22       24      16                       72%          11          NA
+23       21      14                       74%           7          NA
+24       19      14                       81%           5          NA
+25       18      13                       81%           1          NA
+26       18      11         23         18 74%           2          NA
+27       18      10                       70%           2          NA
+28       19       9                       65%           2          NA
+29       19       8                       62%          -0          NA
+30       19      11                       71%           3          NA
+31       21      12                       68%           6          NA
+32       23      18         31         23 82%          10          NA
+33       24      14                       65%          14          NA
+34       25      17                       71%          13          NA
+35       24      20                       85%          15          NA
+36       27      13                       55%          14          NA
+37       28      16                       61%          17          NA
+38       31      19         39         31 61%          18          NA
+39       32      20                       62%          23          NA
+40       34      23                       64%          24          NA
+41       32      28                       85%          26          NA
+42       34      25                       70%          25          NA
+43       36      27         38         30 70%          32          NA
+44       36      23                       59%          NA          NA
+45       37      20                       51%          32          NA
+46       38      22                       53%          30          NA
+47       35      21                       57%          28          NA
+48       33      20                       59%          NA          NA
+49       30      22         33         30 72%          23          NA
+50       31      27                       85%          26          NA
+51       31      26                       82%          NA          NA
+52       32      27                       82%          26          NA
+53       32      27                       82%          24          NA
+54       33      28                       82%          27          NA
+55       33      28         36         33 82%          26          NA
+56       34      29                       82%          29          NA
+57       34      30                       85%          28          NA
+58       34      29                       82%          27          NA
+59       34      30                       85%          27          NA
+60       35      30                       82%          28          NA
+61       36      32         39         36 86%          28          NA
+62       37      32                       83%          30          NA
+63       38      34                       86%          32          NA
+64       39      36                       89%          35          NA
+65       39      35                       86%          35          NA
+66       37      35                       93%          32          NA
+   Press_alt_in Press_SL_mb Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1         29.82      1011.2                                    
+2         29.85      1012.2                                    
+3         29.88      1013.3                                    
+4         29.91      1014.4                                    
+5         29.93      1015.2                                    
+6         29.95      1015.5                                    
+7         29.98      1016.7                                    
+8         30.00      1017.2                                    
+9         29.99      1017.0                                    
+10        29.99      1017.0                                    
+11        29.99      1017.1                                    
+12        29.98      1016.8                                    
+13        29.97      1016.5                                    
+14        29.95      1015.7                                    
+15        29.94      1015.4                                    
+16        29.93      1015.2                                    
+17        29.93      1014.9                                    
+18        29.92      1014.6                                    
+19        29.92      1014.7                                    
+20        29.93      1014.9                                    
+21        29.94      1015.3                                    
+22        29.95      1015.7                                    
+23        29.97      1016.7                                    
+24        29.99      1017.0                                    
+25        29.97      1016.6                                    
+26        29.96      1016.2                                    
+27        29.94      1015.4                                    
+28        29.93      1014.9                                    
+29        29.91      1014.5                                    
+30        29.92      1014.5                                    
+31        29.91      1014.1                                    
+32        29.90      1013.7                                    
+33        29.89      1013.4                                    
+34        29.90      1013.7                                    
+35        29.91      1014.0                                    
+36        29.90      1013.6                                    
+37        29.89      1013.4                                    
+38        29.87      1012.6                                    
+39        29.84      1011.8                                    
+40        29.83      1011.2                                    
+41        29.82      1011.0                                    
+42        29.81      1010.5                                    
+43        29.82      1010.8                                    
+44        29.83      1011.3                                    
+45        29.84      1011.6                                    
+46        29.85      1011.7                                    
+47        29.85      1012.0                                    
+48        29.86      1012.3                                    
+49        29.85      1012.0                                    
+50        29.85      1012.1                                    
+51        29.86      1012.1                                    
+52        29.86      1012.0                                    
+53        29.87      1012.5                                    
+54        29.88      1012.9                                    
+55        29.90      1013.6                                    
+56        29.90      1013.6                                    
+57        29.90      1013.5                                    
+58        29.89      1013.3                                    
+59        29.89      1013.1                                    
+60        29.89      1013.0                                    
+61        29.87      1012.3                                0.02
+62        29.84      1011.2                                    
+63        29.82      1010.4                                    
+64        29.80      1009.7                    0.02            
+65        29.79      1009.4                                    
+66        29.79      1009.3        0.02                        
+KSYR                 day     time            wind_mph vis_mi
+1                 15    08:54                 S 8  10.00
+2                 15    07:54                 S 6  10.00
+3                 15    06:54                SW 8  10.00
+4                 15    05:54                W 12  10.00
+5                 15    04:54                 W 8  10.00
+6                 15    03:54                 W 7  10.00
+7                 15    02:54                 W 5  10.00
+8                 15    00:54                NW 8  10.00
+9                 14    23:54               NW 13  10.00
+10                14    22:54               NW 16  10.00
+11                14    21:54               NW 15  10.00
+12                14    20:54               NW 18  10.00
+13                14    19:54               NW 21  10.00
+14                14    18:54          NW 29 G 39  10.00
+15                14    17:54          NW 26 G 43  10.00
+16                14    17:00               NW 26  10.00
+17                14    16:54               NW 26  10.00
+18                14    15:54          NW 29 G 39  10.00
+19                14    14:52               NW 24   5.00
+20                14    13:52                W 18   0.75
+21                14    12:54                W 17   0.75
+22                14    11:51               NW 18   0.75
+23                14    11:42               NW 14   1.00
+24                14    10:54               NW 17   3.00
+25                14    09:54               NW 17   3.00
+26                14    08:54               NW 16   7.00
+27                14    07:54               NW 23   8.00
+28                14    06:54               NW 22   6.00
+29                14    05:54                W 24   2.00
+30                14    04:50                W 25   2.00
+31                14    03:54                W 15   8.00
+32                14    02:54                W 20   8.00
+33                14    01:54                W 22   9.00
+34                14    00:54                W 20   9.00
+35                13    23:54                W 14   9.00
+36                13    22:54                W 18   9.00
+37                13    21:54                W 21  10.00
+38                13    20:54                W 17  10.00
+39                13    19:54                 W 9  10.00
+40                13    18:54                W 12  10.00
+41                13    17:54           W 14 G 26   8.00
+42                13    16:54               SW 10  10.00
+43                13    15:54           W 17 G 24   0.50
+44                13    14:54          SW 10 G 18  10.00
+45                13    13:54               SW 13  10.00
+46                13    12:54          SW 13 G 18  10.00
+47                13    11:54                 W 9  10.00
+48                13    10:54                 W 8  10.00
+49                13    09:54                W 12  10.00
+50                13    08:54               SW 10  10.00
+51                13    07:54                SW 9  10.00
+52                13    06:54                W 10  10.00
+53                13    05:54                SW 5  10.00
+54                13    04:54                 W 8  10.00
+55                13    03:54                 W 6  10.00
+56                13    02:54                 W 9  10.00
+57                13    01:54                 W 9  10.00
+58                13    00:54                W 14  10.00
+59                12    23:54                W 12  10.00
+60                12    22:54                 W 9  10.00
+61                12    21:54                W 10  10.00
+62                12    20:54                W 10  10.00
+63                12    19:54                W 10  10.00
+64                12    18:54                NW 5  10.00
+65                12    17:54                Calm  10.00
+66                12    16:54                Calm  10.00
+67 Temperature (ºF) Pressure Precipitation (in.)   <NA>
+                                weath                         Sky AirTempF
+1                       Mostly Cloudy               BKN055 BKN200       29
+2                       Partly Cloudy        FEW040 SCT095 SCT200       27
+3                            Overcast        FEW039 BKN095 OVC200       27
+4                       Mostly Cloudy        FEW011 SCT039 BKN200       27
+5                            Overcast               BKN039 OVC200       27
+6                            Overcast               BKN039 OVC200       27
+7                       Mostly Cloudy                      BKN200       26
+8                       Mostly Cloudy                      BKN200       27
+9                       Partly Cloudy               FEW070 SCT200       28
+10                      Partly Cloudy               SCT065 SCT200       29
+11                      Mostly Cloudy                      BKN070       29
+12                      Partly Cloudy                      SCT065       30
+13           Partly Cloudy and Breezy                      SCT070       30
+14                 Overcast and Windy                      OVC055       30
+15                 Overcast and Windy                      OVC055       30
+16                 Overcast and Windy               BKN046 OVC055       30
+17                 Overcast and Windy               BKN046 OVC055       30
+18                 Overcast and Windy               SCT046 OVC055       31
+19 Light Snow Blowing Snow and Breezy        BKN022 BKN033 OVC080       28
+20            Light Snow Blowing Snow        SCT017 BKN026 OVC033       28
+21            Light Snow Blowing Snow        SCT026 BKN033 OVC100       26
+22            Light Snow Blowing Snow               BKN026 OVC036       24
+23            Light Snow Blowing Snow               BKN026 OVC036       25
+24                 Light Blowing Snow        SCT026 BKN036 OVC100       22
+25            Light Snow Blowing Snow               SCT022 OVC031       21
+26                         Light Snow               BKN022 OVC036       20
+27              Light Snow and Breezy               SCT018 BKN030       20
+28 Light Snow Blowing Snow and Breezy               BKN018 OVC032       20
+29 Light Snow Blowing Snow and Breezy                      OVC018       21
+30 Light Snow Blowing Snow and Breezy               FEW016 OVC022       23
+31                         Light Snow                      OVC024       24
+32                         Light Snow               BKN023 OVC032       25
+33              Light Snow and Breezy               BKN025 OVC036       27
+34                         Light Snow               BKN025 OVC038       28
+35                         Light Snow                      OVC026       27
+36                         Light Snow               SCT030 OVC038       31
+37                Overcast and Breezy        FEW028 BKN041 OVC050       31
+38                           Overcast        FEW010 BKN030 OVC080       33
+39                      Mostly Cloudy               BKN070 BKN100       32
+40                           Overcast        FEW042 BKN055 OVC100       35
+41                         Light Snow        FEW017 BKN037 OVC060       35
+42                           Overcast               FEW039 OVC060       34
+43                               Snow        SCT008 BKN015 OVC025       34
+44                           Overcast        FEW031 SCT095 OVC200       41
+45                           Overcast SCT031 SCT080 SCT100 OVC200       40
+46                           Overcast        SCT043 BKN055 OVC200       40
+47                      Mostly Cloudy        BKN049 BKN075 BKN200       40
+48                      Mostly Cloudy                      BKN038       39
+49                      Mostly Cloudy               BKN040 BKN060       37
+50                      Mostly Cloudy                      BKN060       35
+51                           Overcast                      OVC050       35
+52                      Mostly Cloudy                      BKN060       34
+53                           Overcast                      OVC060       33
+54                           Overcast                      OVC060       34
+55                           Overcast                      OVC060       35
+56                           Overcast               BKN060 OVC070       35
+57                           Overcast                      OVC060       36
+58                           Overcast                      OVC065       36
+59                           Overcast                      OVC055       37
+60                           Overcast               BKN060 OVC240       36
+61                      Partly Cloudy                      SCT055       37
+62                      Mostly Cloudy                      BKN065       37
+63                           Overcast        FEW021 SCT030 OVC042       39
+64                           Overcast               BKN021 OVC027       40
+65                           Overcast        FEW015 BKN021 OVC029       40
+66                           Overcast        FEW008 BKN023 OVC028       39
+67                               <NA>                        <NA>     <NA>
+   DewPt_F Temp6hrMax Temp6hrMin   RH WindChill_F HeatIndex_F Press_alt_in
+1       16                        57%          21          NA        29.81
+2       15         27         26  61%          20          NA        29.84
+3       14                        58%          19          NA        29.88
+4       13                        56%          16          NA        29.92
+5       13                        56%          19          NA        29.94
+6       14                        57%          19          NA        29.96
+7       12                        54%          20          NA        29.98
+8       11                        51%          19          NA        29.99
+9       10                        46%          17          NA        29.99
+10      10                        45%          17          NA        29.99
+11      10                        43%          18          NA        29.99
+12       9                        41%          18          NA        29.98
+13       8         31         28  40%          17          NA        29.97
+14       8                        39%          15          NA        29.96
+15      10                        43%          16          NA        29.95
+16      14                        50%          16          NA        29.94
+17      14                        50%          16          NA        29.94
+18      14                        49%          16          NA        29.94
+19      17                        64%          14          NA        29.93
+20      19                        69%          15          NA        29.94
+21      20                        78%          13          NA        29.95
+22      16                        74%          10          NA        29.98
+23      14                        63%          13          NA        29.98
+24      11                        63%           8          NA        29.99
+25       8                        58%           7          NA        29.99
+26       7                        58%           6          NA        29.98
+27       8         27         20  59%           3          NA        29.96
+28      10                        64%           4          NA        29.94
+29      14                        73%           4          NA        29.92
+30      14                        68%           7          NA        29.90
+31      13                        65%          11          NA        29.89
+32      14                        63%          11          NA        29.89
+33      15         33         27  62%          13          NA        29.88
+34      17                        63%          15          NA        29.88
+35      21                        80%          16          NA        29.89
+36      18                        58%          19          NA        29.89
+37      16                        53%          18          NA        29.89
+38      20                        58%          22          NA        29.89
+39      25         43         32  75%          24          NA        29.87
+40      25                        67%          27          NA        29.84
+41      28                        76%          26          NA        29.84
+42      29                        82%          26          NA        29.82
+43      29                        82%          23          NA        29.82
+44      24                        51%          35          NA        29.81
+45      25         41         35  55%          32          NA        29.83
+46      22                        49%          32          NA        29.84
+47      22                        49%          34          NA        29.85
+48      23                        53%          33          NA        29.86
+49      23                        57%          29          NA        29.86
+50      23                        61%          27          NA        29.87
+51      23         36         33  61%          28          NA        29.86
+52      24                        67%          26          NA        29.86
+53      26                        75%          28          NA        29.86
+54      26                        73%          27          NA        29.86
+55      27                        72%          30          NA        29.87
+56      26                        70%          28          NA        29.89
+57      27         39         35  70%          29          NA        29.90
+58      27                        70%          27          NA        29.90
+59      28                        70%          29          NA        29.89
+60      28                        73%          29          NA        29.90
+61      28                        70%          30          NA        29.90
+62      29                        73%          30          NA        29.89
+63      31         40         38  73%          32          NA        29.88
+64      34                        79%          36          NA        29.85
+65      35                        83%          NA          NA        29.83
+66      35                        86%          NA          NA        29.82
+67    <NA>       <NA>       <NA> <NA>        <NA>        <NA>         <NA>
+   Press_SL_mb Prec_1hr_in Prec_3hr_in Prec_6hr_in
+1       1009.9                                    
+2       1010.9                                    
+3       1012.6                                    
+4       1013.7                                    
+5       1014.3                                    
+6       1015.0                                    
+7       1015.7                                    
+8           NA                                    
+9       1015.8                                    
+10      1015.8                                    
+11      1015.8                                    
+12      1015.5                                    
+13      1015.1                                    
+14      1014.8                                    
+15      1014.5                                    
+16      1014.1                                    
+17      1014.1                                    
+18      1014.1                                    
+19      1013.6                                    
+20          NA                                    
+21      1014.4                                    
+22      1015.6                                    
+23          NA                                    
+24      1016.0                                    
+25      1016.0                                    
+26      1015.6                                    
+27      1014.1                                    
+28      1013.5                                    
+29          NA                                    
+30      1012.6                                    
+31      1012.2                                    
+32      1012.3                                    
+33      1012.0                                    
+34      1012.0                                    
+35      1012.2                                    
+36      1012.2                                    
+37      1012.2                                    
+38      1012.1                                    
+39      1011.3                                0.04
+40      1010.6                                    
+41      1010.3                                    
+42      1009.8        0.04        0.04            
+43      1009.9                                    
+44      1009.5                                    
+45      1010.1                                    
+46      1010.6                                    
+47      1010.7                                    
+48      1011.0                                    
+49      1011.3                                    
+50      1011.4                                    
+51      1011.1                                    
+52      1011.1                                    
+53      1011.2                                    
+54      1011.3                                    
+55      1011.7                                    
+56      1012.2                                    
+57      1012.5                                    
+58      1012.6                                    
+59      1012.1                                    
+60      1012.5                                    
+61      1012.3                                    
+62      1012.1                                    
+63      1011.6                                0.05
+64      1010.8                                    
+65      1010.0                                    
+66      1009.6                    0.05            
+67        <NA>        <NA>        <NA>        <NA>

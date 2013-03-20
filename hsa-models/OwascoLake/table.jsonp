@@ -1,0 +1,1 @@
+var t =  {"Date":["Thurs","Fri","Sat"],"Label":["Rain/Snow melt, mm","Chance of precip (%)","% watershed saturated"],"Today":[2,"NA",10],"Tomorrow":[0,11,10],"DayAfter":[0,22,0],"D3":[1,22,0]}
